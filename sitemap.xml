@@ -1,1 +1,45 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml"><url><loc>https://sarahqiong.github.io/blog/</loc><lastmod>2024-01-20T00:00:00+00:00</lastmod></url><url><loc>https://sarahqiong.github.io/categories/</loc><lastmod>2024-01-20T00:00:00+00:00</lastmod></url><url><loc>https://sarahqiong.github.io/tags/clustering/</loc><lastmod>2024-01-20T00:00:00+00:00</lastmod></url><url><loc>https://sarahqiong.github.io/blog/gmr/</loc><lastmod>2024-01-20T00:00:00+00:00</lastmod></url><url><loc>https://sarahqiong.github.io/tags/gmm/</loc><lastmod>2024-01-20T00:00:00+00:00</lastmod></url><url><loc>https://sarahqiong.github.io/categories/machine-learning/</loc><lastmod>2024-01-20T00:00:00+00:00</lastmod></url><url><loc>https://sarahqiong.github.io/</loc><lastmod>2024-01-20T00:00:00+00:00</lastmod></url><url><loc>https://sarahqiong.github.io/categories/research/</loc><lastmod>2024-01-20T00:00:00+00:00</lastmod></url><url><loc>https://sarahqiong.github.io/tags/statistics/</loc><lastmod>2024-01-20T00:00:00+00:00</lastmod></url><url><loc>https://sarahqiong.github.io/tags/</loc><lastmod>2024-01-20T00:00:00+00:00</lastmod></url><url><loc>https://sarahqiong.github.io/about/</loc></url><url><loc>https://sarahqiong.github.io/news/</loc></url><url><loc>https://sarahqiong.github.io/research/</loc></url><url><loc>https://sarahqiong.github.io/research/collaborators/</loc></url><url><loc>https://sarahqiong.github.io/teaching/</loc></url></urlset>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://sarahqiong.github.io/blog/</loc>
+    <lastmod>2024-01-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://sarahqiong.github.io/categories/</loc>
+    <lastmod>2024-01-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://sarahqiong.github.io/tags/clustering/</loc>
+    <lastmod>2024-01-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://sarahqiong.github.io/blog/gmr/</loc>
+    <lastmod>2024-01-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://sarahqiong.github.io/tags/gmm/</loc>
+    <lastmod>2024-01-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://sarahqiong.github.io/categories/machine-learning/</loc>
+    <lastmod>2024-01-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://sarahqiong.github.io/</loc>
+    <lastmod>2024-01-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://sarahqiong.github.io/categories/research/</loc>
+    <lastmod>2024-01-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://sarahqiong.github.io/tags/statistics/</loc>
+    <lastmod>2024-01-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://sarahqiong.github.io/tags/</loc>
+    <lastmod>2024-01-20T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://sarahqiong.github.io/about/</loc>
+  </url><url>
+    <loc>https://sarahqiong.github.io/news/</loc>
+  </url><url>
+    <loc>https://sarahqiong.github.io/research/</loc>
+  </url><url>
+    <loc>https://sarahqiong.github.io/research/collaborators/</loc>
+  </url><url>
+    <loc>https://sarahqiong.github.io/teaching/</loc>
+  </url>
+</urlset>

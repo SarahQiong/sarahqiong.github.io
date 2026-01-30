@@ -1,7 +1,508 @@
-<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>Gaussian mixture reduction and its applications | Qiong Zhang | 张琼</title><meta name=keywords content="gmm,statistics,clustering"><meta name=description content="An introduction to Gaussian mixture reduction and its applications in statistics, engineering, and computer graphics."><meta name=author content="Qiong Zhang"><link rel=canonical href=https://sarahqiong.github.io/blog/gmr/><link crossorigin=anonymous href=/assets/css/stylesheet.86e0aa5cc6d84307b3939181ac6a67e9e7aabad9a2f15e0c99e79b45feb9c5c9.css integrity="sha256-huCqXMbYQwezk5GBrGpn6eequtmi8V4MmeebRf65xck=" rel="preload stylesheet" as=style><link rel=icon href=https://sarahqiong.github.io/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://sarahqiong.github.io/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://sarahqiong.github.io/favicon-32x32.png><link rel=apple-touch-icon href=https://sarahqiong.github.io/apple-touch-icon.png><link rel=mask-icon href=https://sarahqiong.github.io/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=en href=https://sarahqiong.github.io/blog/gmr/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><meta property="og:url" content="https://sarahqiong.github.io/blog/gmr/"><meta property="og:site_name" content="Qiong Zhang | 张琼"><meta property="og:title" content="Gaussian mixture reduction and its applications"><meta property="og:description" content="An introduction to Gaussian mixture reduction and its applications in statistics, engineering, and computer graphics."><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="blog"><meta property="article:published_time" content="2024-01-20T00:00:00+00:00"><meta property="article:modified_time" content="2024-01-20T00:00:00+00:00"><meta property="article:tag" content="Gmm"><meta property="article:tag" content="Statistics"><meta property="article:tag" content="Clustering"><meta name=twitter:card content="summary"><meta name=twitter:title content="Gaussian mixture reduction and its applications"><meta name=twitter:description content="An introduction to Gaussian mixture reduction and its applications in statistics, engineering, and computer graphics."><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Blogs","item":"https://sarahqiong.github.io/blog/"},{"@type":"ListItem","position":2,"name":"Gaussian mixture reduction and its applications","item":"https://sarahqiong.github.io/blog/gmr/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Gaussian mixture reduction and its applications","name":"Gaussian mixture reduction and its applications","description":"An introduction to Gaussian mixture reduction and its applications in statistics, engineering, and computer graphics.","keywords":["gmm","statistics","clustering"],"articleBody":"The content will be updated soon. Stay tuned!\n","wordCount":"8","inLanguage":"en","datePublished":"2024-01-20T00:00:00Z","dateModified":"2024-01-20T00:00:00Z","author":{"@type":"Person","name":"Qiong Zhang"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://sarahqiong.github.io/blog/gmr/"},"publisher":{"@type":"Organization","name":"Qiong Zhang | 张琼","logo":{"@type":"ImageObject","url":"https://sarahqiong.github.io/favicon.ico"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://sarahqiong.github.io/ accesskey=h title="Qiong Zhang | 张琼 (Alt + H)">Qiong Zhang | 张琼</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme">
-<svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-<svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu><li><a href=https://sarahqiong.github.io/about/ title="About me"><span>About me</span></a></li><li><a href=https://sarahqiong.github.io/news/ title=News><span>News</span></a></li><li><a href=https://sarahqiong.github.io/research/ title=Research><span>Research</span></a></li><li><a href=https://sarahqiong.github.io/teaching/ title=Teaching><span>Teaching</span></a></li><li><a href=https://sarahqiong.github.io/blog/ title=Blog><span>Blog</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><h1 class="post-title entry-hint-parent">Gaussian mixture reduction and its applications</h1><div class=post-meta><span title='2024-01-20 00:00:00 +0000 UTC'>January 20, 2024</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Qiong Zhang</div></header><div class=post-content><p>The content will be updated soon. Stay tuned!</p></div><footer class=post-footer><ul class=post-tags><li><a href=https://sarahqiong.github.io/tags/gmm/>Gmm</a></li><li><a href=https://sarahqiong.github.io/tags/statistics/>Statistics</a></li><li><a href=https://sarahqiong.github.io/tags/clustering/>Clustering</a></li></ul></footer></article></main><footer class=footer><span>&copy; 2025 <a href=https://sarahqiong.github.io/>Qiong Zhang | 张琼</a></span> ·
-<span>Powered by
-<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentColor"><path d="M12 6H0l6-6z"/></svg>
-</a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script></body></html>
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Gaussian mixture reduction and its applications | Qiong Zhang | 张琼</title>
+<meta name="keywords" content="gmm, statistics, clustering">
+<meta name="description" content="An introduction to Gaussian mixture reduction and its applications in statistics, engineering, and computer graphics.">
+<meta name="author" content="Qiong Zhang">
+<link rel="canonical" href="https://sarahqiong.github.io/blog/gmr/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.86e0aa5cc6d84307b3939181ac6a67e9e7aabad9a2f15e0c99e79b45feb9c5c9.css" integrity="sha256-huCqXMbYQwezk5GBrGpn6eequtmi8V4MmeebRf65xck=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://sarahqiong.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://sarahqiong.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://sarahqiong.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://sarahqiong.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://sarahqiong.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://sarahqiong.github.io/blog/gmr/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://sarahqiong.github.io/blog/gmr/">
+  <meta property="og:site_name" content="Qiong Zhang | 张琼">
+  <meta property="og:title" content="Gaussian mixture reduction and its applications">
+  <meta property="og:description" content="An introduction to Gaussian mixture reduction and its applications in statistics, engineering, and computer graphics.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blog">
+    <meta property="article:published_time" content="2024-01-20T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-01-20T00:00:00+00:00">
+    <meta property="article:tag" content="Gmm">
+    <meta property="article:tag" content="Statistics">
+    <meta property="article:tag" content="Clustering">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gaussian mixture reduction and its applications">
+<meta name="twitter:description" content="An introduction to Gaussian mixture reduction and its applications in statistics, engineering, and computer graphics.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Blogs",
+      "item": "https://sarahqiong.github.io/blog/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Gaussian mixture reduction and its applications",
+      "item": "https://sarahqiong.github.io/blog/gmr/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Gaussian mixture reduction and its applications",
+  "name": "Gaussian mixture reduction and its applications",
+  "description": "An introduction to Gaussian mixture reduction and its applications in statistics, engineering, and computer graphics.",
+  "keywords": [
+    "gmm", "statistics", "clustering"
+  ],
+  "articleBody": "Hi! This is my first blog post on Gaussian mixture reduction and its applications. I\nWhat is Gaussian mixture? Gaussian mixture is a family of distributions. Most people might be familiar with Gaussian distribution, a bell shaped distribution that is widely used in practice. For example, if you draw the histogram of the final grades of a class, or if you draw the histogram of the age of a population. Usually, these histograms will have a peak in the middle and delays on both ends.\nThe Gaussian distribution\nLet $\\sR^{d}$ be the standard Euclidean space of dimension $d$ and $\\Theta$ be some space. A parametric distribution family with density function $f(x;\\theta)$ with respect to some $\\sigma$-finite measure is $\\gF = { f(x;\\theta): x\\in \\sR^{d}, \\theta \\in \\Theta}$. Let $\\delta_{\\theta}(\\cdot)$ be the Dirac measure such that $\\delta_{\\theta}(\\sA)=1$ if $\\theta$ is in set $\\sA$ and $0$ otherwise. Let $G= \\sum_{k=1}^{K} w_k \\delta_{\\theta_k}$ be a discrete probability measure, assigning probability $w_k$ to parameter value $\\theta_k \\in \\Theta$ for some integer $K\u003e0$. A distribution with the following density function \\begin{equation} \\label{def:general_mixture_density} f(x; G) = \\int f(x;\\theta),dG(\\theta) = \\sum_{k=1}^K w_k f(x;\\theta_k) \\end{equation} is called a finite mixture of $\\mathcal{F}$. We call $f(x; \\theta)$ the subpopulation density function. The elements of $\\btheta=(\\theta_1,\\theta_2,\\ldots,\\theta_K)^{\\top}$ and that of $\\vw=(w_1,w_2,\\ldots,w_K)^{\\top}$ are respectively called the subpopulation parameter and the mixing weight. We use $F(x; \\theta)$ and $F(x; G)$ for the \\ac{CDF} of $f(x;\\theta)$ and $f(x;G)$ respectively. Let $\\Theta^{K} =\\Theta\\times\\Theta\\times\\cdots\\times \\Theta$ be the Cartesian product over $K$ sets of $\\Theta$ and $\\Delta_{K-1}$ be the $(K-1)$-dimensional simplex ${(w_1, w_2, \\ldots, w_{K}): w_{k} \\in [0,1], \\sum_{k=1}^{K} w_k=1}$, we denote the space of mixing distributions $G$ of order up to $K$ as \\begin{equation} \\label{eq:G_K} \\mathbb{G}_{K} \\left { G: G=\\sum_{k=1}^K w_k\\delta_{\\theta_k},\n\\vw \\in \\Delta_{K-1}, \\btheta \\in \\Theta^K \\right }. \\end{equation} A mixture of (exactly) order $K$ has its mixing distribution $G$ being a member of $\\sG_{K}\\backslash\\sG_{K-1} = {G: G\\in \\sG_{K}\\text{ and }G\\not\\in\\sG_{K-1}}$. The order $K$ is also referred to as the number of components of a mixture. A mixture model is a collection of mixture distributions of $\\gF$.\nThe finite mixtures are commonly used to model the distribution of population that exhibits heterogeneity. In many applications, the population can be decomposed into several different but homogeneous subpopulations, whose distributions can be modelled by a classical parametric distribution. As early as in 1894,\\citet{pearson1894contributions} applies a Gaussian mixture to analyze crabs’ ratio of the forehead to body length data. \\begin{figure}[htbp] \\centering \\includegraphics[width=0.9\\textwidth]{figure/misc/Pearson.png} \\caption{Plot of the histogram of the ratio of forehead to body length data on $1000$ crabs and of the fitted Gaussian density (dashed line) and two-component Gaussian mixture density (solid line). The two-component Gaussian mixture suggests the crabs may be from two unidentified subspecies.} \\label{fig:pearson_example} \\end{figure} The histogram of the ratio of forehead to body length of $1000$ crabs that Pearson analyzed is shown in Figure\\ref{fig:pearson_example}. In this figure, the dashed line is the density function of the single Gaussian distribution fitted to the data. The Gaussian distribution is clearly not a good fit. Based on the general understanding that a well developed biological species should have its biometrics normally (Gaussian) distributed, Pearson suggests the $1000$ crabs is composed $2$ unidentified subspecies. He subsequently fits a $2$-component Gaussian mixture to the data and the density function of the fitted mixture is given by the solid line in Figure~\\ref{fig:pearson_example}. The well fitted mixture supports the two subspecies hypothesis of crabs in the collected sample. Finite mixtures are also widely used in other disciplines. In finance, people believe the stock prices in the stock market is either in a normal\" state or a extreme\" state~\\citep{liesenfeld2001generalized}. Hence, the distribution of stock prices often resembles Gaussian mixture. In the study the evolution of galaxies,~\\citet{baldry2004color} suggests the existence of $2$ galaxy subpopulations: a passively evolving red galaxy subpopulation and a blue star-forming galaxy subpopulation. A $2$-component mixture fitted on the data suggests that there cannot be a continuous evolution and the rapid change of galaxies in these $2$ subpopulations is due to galaxy merger.\nIn machine learning, finite mixtures are often used as probabilistic models for clustering analysis~\\citep{bishop2006pattern}. The finite mixture model is used in~\\citet{fraley2002model} to cluster breast cancer patients into different groups. Clinically, doctors generally divide the tumours into either malignant or benign types. Their analysis suggests that there may be $3$ groups suggesting that the malignant tumour may be in different stages. The finding based on mixture model is clinically important to determine an appropriate course of action for malignancy. In a clinical example in~\\citet{baudry2010combining}, the Gaussian mixture is used to study the development of the graft-versus-host disease (GvHD). GvHD occurs in allogeneic hematopoietic stem cell transplant recipients when donor-immune cells in the graft attack the skin, gut, liver, and other tissues of the recipient. GvHD is diagnosed by clinical and histologic criteria that are often nonspecific and it is typically apparent only after the disease is well established. In their study, a mixture model is fitted to the bio-marker of GvHD positive patient data and the result suggests the existence of $4$ cell subpopulations. These cell subpopulations correspond to colour combinations of lymphocyte phenotypic and activation markers at progressive time points post transplant.\nIt is often cited~\\citep{titterington1985statistical,nguyen2020approximation} that there always exists a Gaussian mixture whose density function is arbitrarily close to any density function. For example, the kernel density estimate with Gaussian kernel and proper bandwidth is consistent for any continuous density function that varnishes at infinity. \\todo{reference} Finite mixtures are therefore also broadly used as a parametric model to approximate distributions with unknown shapes. Figure~\\ref{fig:gmm_density} gives density functions of Gaussian mixtures with various shapes, demonstrating their ability to approximate an arbitrary density. \\begin{figure}[htbp] \\centering \\includegraphics[width=0.24\\textwidth]{figure/misc/skewed_unimodal_density.png} \\includegraphics[width=0.24\\textwidth]{figure/misc/strongly_skewed_density.png} \\includegraphics[width=0.24\\textwidth]{figure/misc/bimodal_density.png} \\includegraphics[width=0.24\\textwidth]{figure/misc/asymmetric_bimodal_density.png}\\ \\includegraphics[width=0.24\\textwidth]{figure/misc/claw_density.png} \\includegraphics[width=0.24\\textwidth]{figure/misc/asymmetric_claw_density.png} \\includegraphics[width=0.24\\textwidth]{figure/misc/discrete_comb.png} \\includegraphics[width=0.24\\textwidth]{figure/misc/double_claw_density.png} \\caption{Density function of Gaussian mixtures with various shapes in \\citet[Section 1.5]{mclachlan2004finite}.} \\label{fig:gmm_density} \\end{figure} In system design in engineering, the shape of the distribution of the design life of systems can vary considerably. \\citet{buvcar2004reliability} proposes to approximate the density functions of these distributions by finite Weibull mixtures. In~\\citet{santosh2013tracking},\\citet{brubaker2015map}, and\\citet{yu2018density}, the Gaussian mixtures are used to approximate density functions in Bayesian inference procedures under hidden Markov models for the task of object tracking in video sequences.\n\\subsubsection{Commonly Used Models for Subpopulation} There are a lot of choices for the subpopulation distribution family $\\gF$. We give several examples of the most commonly used models below.\nThe finite Gaussian mixtures are by far the most studied finite mixture model. For example,\\citet{lo2001testing},\\citet{chen2009hypothesis}, and~\\citet{chen2012inference} study the problem of testing the order of a Gaussian mixture. The \\texttt{mclust} package in \\texttt{R}\\citep{scrucca2016mclust} is developed for using finite Gaussian mixtures for model based clustering, classification, and density estimation in applications. \\citet{xu1996convergence} studies the convergence of the \\ac{EM} algorithm under finite Gaussian mixtures. Various learning approaches under finite Gaussian mixtures\\citep{vlassis2002greedy,pernkopf2005genetic,constantinopoulos2007unsupervised} are also studied. We give the density function of finite Gaussian mixtures in the following example.\n\\begin{example}[Finite Gaussian Mixture] As the name suggests, a finite Gaussian mixture is a mixture of Gaussian distributions. A $d$-dimensional Gaussian distribution with mean vector $\\mu$ and covariance matrix $\\Sigma$ has density function given by [ \\phi (x ; \\mu, \\Sigma) \\det(2\\pi\\Sigma)^{-1/2} \\exp \\left {-\\frac{1}{2}(x-\\mu)^\\top \\Sigma^{-1}(x-\\mu) \\right } ] where $\\text{det}(\\cdot)$ is the determinant of a square matrix. We denote by $\\Phi(x; \\mu, \\Sigma)$ its \\acs{CDF}. We denote the density of a finite \\ac{GMM} of order $K$ and its \\acs{CDF} by [ \\phi(x; G) = \\sum_{k=1}^K w_k \\phi(x; \\mu_k,\\Sigma_k);\\quad \\Phi(x; G) = \\sum_{k=1}^K w_k \\Phi (x; \\mu_k,\\Sigma_k). ] Under the finite \\acs{GMM}, the subpopulation parameter is $\\theta=(\\mu, \\Sigma)$ with its parameter space $\\Theta = \\sR^d \\times \\sS_{+}^{d}$ where $\\sS_{+}^{d}$ is the space of all $d\\times d$ positive definite matrices. \\end{example}\nBinomial and Poisson mixtures are also broadly investigated in the literature and used in applications. In genetics, the number of recombinants of a family with $K$ offspring has binomial mixture distribution in the presence of genetic mutations~\\citep{chernoff1995asymptotic}. The Poisson mixture model is well motivated for count data such as the number of patents~\\citep{wang1998analysis} and the spinal tumour counts for patients with the disease neurofibromatosis 2~\\citep{joe2005generalized}. The Gamma mixtures are often used to model household income distribution~\\citep{he2021strong}. These mixtures may be regarded as special cases where the subpopulation distribution family of the mixture, $\\gF$, is an exponential family. The exponential family is defined as follows.\n\\begin{definition}[Exponential Family] An exponential family is defined as a distribution family whose densities can be represented as [ f(x; \\theta) = \\exp{\\theta^{\\top} T(x) - A(\\theta)}h(x) ] with respect to some reference measure $\\nu(\\cdot)$. In this definition, the vector $\\theta = (\\theta_1, \\theta_2,\\ldots,\\theta_m)^{\\top}$ is called the natural parameter. The natural sufficient statistics is the vector $T(x)=(T_1(x), T_2(x),\\ldots, T_m(x))^{\\top}$. The function $h(x)$ modifies the reference measure $\\nu(\\cdot)$ and the log-partition $A(\\theta)$ is a normalization constant that does not depend on $x$. The parameter space of $\\theta$ is usually expanded to be [ \\Theta = \\left{ \\theta\\in\\sR^{m}: \\int \\exp{\\theta^{\\top}T(x)},\\nu(dx)\u003c\\infty \\right}. ] \\end{definition} In Table~\\ref{tab:exp_family}, we list widely used exponential families with their sufficient statistics and parameter space. We do not include the reference measure $\\nu(\\cdot)$ and $h(x)$ as they are not relevant in statistical inferences.\n\\begin{table}[htb] \\centering \\caption{The natural sufficient statistics, natural parameter, and parameter space of some widely used exponential distribution families.} \\resizebox{\\textwidth}{!}{ \\begin{tabular}{llll} \\toprule Name of $\\gF$ \u0026 $T(x)$ \u0026 $A(\\theta)$ \u0026 $\\Theta$\\ \\midrule \\multicolumn{4}{c}{Univariate discrete distributions}\\ Binomial \u0026 $x$ \u0026 $\\log {1 + \\exp(\\theta)}$ \u0026 $\\sR$\\ Poisson \u0026 $x$ \u0026 $\\exp(\\theta)$ \u0026 $\\sR$\\ \\midrule \\multicolumn{4}{c}{Univariate continuous distributions}\\ Exponential \u0026 $x$ \u0026 $-\\log(-\\theta)$ \u0026 $(-\\infty, 0)$ \\ Weibull (known $k$) \u0026\n$x^k$ \u0026 $-\\log(-\\theta)$ \u0026 $(-\\infty, 0)$ \\ Laplace (known $\\mu$) \u0026 $|x-\\mu|$ \u0026 $\\log(-2/\\theta)$ \u0026 $(-\\infty, 0)$\\ Rayleigh \u0026 $x^2$ \u0026 $-\\log(-2\\theta)$ \u0026 $(-\\infty, 0)$\\ Log-normal \u0026 $(\\log x, \\log^2 x)^{\\top}$ \u0026 $-\\theta_1^2/\\theta_2-1/\\sqrt{2\\theta_2}$ \u0026 $\\sR \\times (-\\infty, 0)$ \\ Gamma \u0026 $(\\log x, x)^{\\top}$ \u0026 $\\log\\Gamma(\\theta_1+1)-(\\theta_1+1)\\log(-\\theta_2)$ \u0026 $(-1, \\infty) \\times(-\\infty, 0)$\\ Inverse Gamma \u0026 $(\\log x, 1/x)^{\\top}$ \u0026 $\\log\\Gamma(-\\theta_1-1))+(\\theta_1+1)\\log(-\\theta_2)$ \u0026 $(-\\infty, -1)\\times (-\\infty, 0)$\\ \\bottomrule \\end{tabular}} \\label{tab:exp_family} \\end{table}\nAnother well investigated class of mixture models have location-scale families as their subpopulation model $\\gF$. Let $f_0(x)$ be the distribution of a univariate random variable with support $x \\in \\sR$. A location-scale distribution family is formed by all distributions with density function \\begin{equation*} f(x; \\theta) = \\frac{1}{\\sigma} f_0 \\left(\\frac{x-\\mu}{\\sigma} \\right) \\end{equation*} for $\\theta = (\\mu, \\sigma)^{\\top}$ and parameter space $\\Theta = \\sR \\times (0, \\infty)$. Some examples of $f_0(x)$ are: \\begin{itemize} \\item Univariate Gaussian distribution: $f_0(x)=\\phi(x;0,1)$; \\item Logistic distribution: $f_0(x) = \\exp(-x)/{1+\\exp(-x)}^2$; \\item Gumbel distribution (type I extreme-value distribution): $f_0(x)= \\exp{-x-\\exp(-x)}$. \\end{itemize}\n\\citet{naya2006logistic} uses logistic mixture for thermogravimetric analysis and \\citet{salimans2017pixelcnn++} uses this model for image analysis. The Weibull mixture is used by~\\citet{hernandez2006weibull} to characterize end-to-end network delays and by~\\citet{marin2005using} to model the life time of patients with lupus nephritis. \\citet{zhang2006fitting} applies a mixture of Weibull distribution to model irregular diameter distribution of forest stands. The Weibull mixture is also used by~\\cite{carta2007analysis} to model the distribution of wind speed.\nWhat is Gaussian mixture reduction (GMR) Applications of GMR Kalman filter\nExisting approaches for GMR ",
+  "wordCount" : "1806",
+  "inLanguage": "en",
+  "datePublished": "2024-01-20T00:00:00Z",
+  "dateModified": "2024-01-20T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Qiong Zhang"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://sarahqiong.github.io/blog/gmr/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Qiong Zhang | 张琼",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sarahqiong.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://sarahqiong.github.io/" accesskey="h" title="Qiong Zhang | 张琼 (Alt + H)">Qiong Zhang | 张琼</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://sarahqiong.github.io/about/" title="About me">
+                    <span>About me</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://sarahqiong.github.io/news/" title="News">
+                    <span>News</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://sarahqiong.github.io/research/" title="Research">
+                    <span>Research</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://sarahqiong.github.io/teaching/" title="Teaching">
+                    <span>Teaching</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://sarahqiong.github.io/blog/" title="Blog">
+                    <span>Blog</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Gaussian mixture reduction and its applications
+    </h1>
+    <div class="post-meta"><span title='2024-01-20 00:00:00 +0000 UTC'>January 20, 2024</span>&nbsp;·&nbsp;9 min&nbsp;·&nbsp;Qiong Zhang
+
+</div>
+  </header> <div class="toc">
+    <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#what-is-gaussian-mixture" aria-label="What is Gaussian mixture?">What is Gaussian mixture?</a></li>
+                <li>
+                    <a href="#what-is-gaussian-mixture-reduction-gmr" aria-label="What is Gaussian mixture reduction (GMR)">What is Gaussian mixture reduction (GMR)</a><ul>
+                        
+                <li>
+                    <a href="#applications-of-gmr" aria-label="Applications of GMR">Applications of GMR</a></li>
+                <li>
+                    <a href="#existing-approaches-for-gmr" aria-label="Existing approaches for GMR">Existing approaches for GMR</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>Hi! This is my first blog post on Gaussian mixture reduction and its applications.
+I</p>
+<h3 id="what-is-gaussian-mixture">What is Gaussian mixture?<a hidden class="anchor" aria-hidden="true" href="#what-is-gaussian-mixture">#</a></h3>
+<p>Gaussian mixture is a family of distributions.
+Most people might be familiar with Gaussian distribution, a bell shaped distribution that is widely used in practice.
+For example, if you draw the histogram of the final grades of a class, or if you draw the histogram of the age of a population.
+Usually, these histograms will have a peak in the middle and delays on both ends.</p>
+<p>The Gaussian distribution</p>
+<h1 id="mathbbg_k">Let $\sR^{d}$ be the standard Euclidean space of dimension $d$ and $\Theta$ be some space.
+A parametric distribution family with density function $f(x;\theta)$ with respect to some $\sigma$-finite measure is $\gF = { f(x;\theta): x\in \sR^{d}, \theta \in \Theta}$.
+Let $\delta_{\theta}(\cdot)$ be the Dirac measure such that $\delta_{\theta}(\sA)=1$ if $\theta$ is in set $\sA$ and $0$ otherwise.
+Let $G= \sum_{k=1}^{K} w_k \delta_{\theta_k}$ be a discrete probability measure, assigning probability $w_k$ to parameter value $\theta_k \in \Theta$ for some integer $K&gt;0$.
+A distribution with the following density function
+\begin{equation}
+\label{def:general_mixture_density}
+f(x; G) = \int f(x;\theta),dG(\theta) = \sum_{k=1}^K w_k f(x;\theta_k)
+\end{equation}
+is called a finite mixture of $\mathcal{F}$.
+We call $f(x; \theta)$ the subpopulation density function.
+The elements of $\btheta=(\theta_1,\theta_2,\ldots,\theta_K)^{\top}$ and that of $\vw=(w_1,w_2,\ldots,w_K)^{\top}$ are respectively called the subpopulation parameter and the mixing weight.
+We use $F(x; \theta)$ and $F(x; G)$ for the \ac{CDF} of $f(x;\theta)$ and $f(x;G)$ respectively.
+Let $\Theta^{K} =\Theta\times\Theta\times\cdots\times \Theta$ be the Cartesian product over $K$ sets of $\Theta$ and $\Delta_{K-1}$ be the $(K-1)$-dimensional simplex ${(w_1, w_2, \ldots, w_{K}): w_{k} \in [0,1], \sum_{k=1}^{K} w_k=1}$, we denote the space of mixing distributions $G$ of order up to $K$ as
+\begin{equation}
+\label{eq:G_K}
+\mathbb{G}_{K}</h1>
+<p>\left {
+G: G=\sum_{k=1}^K w_k\delta_{\theta_k},<br>
+\vw \in \Delta_{K-1},  \btheta \in \Theta^K
+\right }.
+\end{equation}
+A mixture of (exactly) order $K$ has its mixing distribution $G$ being a member of $\sG_{K}\backslash\sG_{K-1} = {G: G\in \sG_{K}\text{ and }G\not\in\sG_{K-1}}$.
+The order $K$ is also referred to as the number of components of a mixture.
+A mixture model is a collection of mixture distributions of $\gF$.</p>
+<p>The finite mixtures are commonly used to model the distribution of population that exhibits heterogeneity.
+In many applications, the population can be decomposed into several different but homogeneous subpopulations, whose distributions can be modelled by a classical parametric distribution.
+As early as in 1894,<del>\citet{pearson1894contributions} applies a Gaussian mixture to analyze crabs&rsquo; ratio of the forehead to body length data.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.9\textwidth]{figure/misc/Pearson.png}
+\caption{Plot of the histogram of the ratio of forehead to body length data on $1000$ crabs and of the fitted Gaussian density (dashed line) and two-component Gaussian mixture density (solid line). The two-component Gaussian mixture suggests the crabs may be from two unidentified subspecies.}
+\label{fig:pearson_example}
+\end{figure}
+The histogram of the ratio of forehead to body length of $1000$ crabs that Pearson analyzed is shown in Figure</del>\ref{fig:pearson_example}.
+In this figure, the dashed line is the density function of the single Gaussian distribution fitted to the data.
+The Gaussian distribution is clearly not a good fit.
+Based on the general understanding that a well developed biological species should have its biometrics normally (Gaussian) distributed, Pearson suggests the $1000$ crabs is composed $2$ unidentified subspecies.
+He subsequently fits a $2$-component Gaussian mixture to the data and the density function of the fitted mixture is given by the solid line in Figure~\ref{fig:pearson_example}.
+The well fitted mixture supports the two subspecies hypothesis of crabs in the collected sample.
+Finite mixtures are also widely used in other disciplines.
+In finance, people believe the stock prices in the stock market is either in a <code>normal&quot; state or a </code>extreme&quot; state~\citep{liesenfeld2001generalized}.
+Hence, the distribution of stock prices often resembles Gaussian mixture.
+In the study the evolution of galaxies,~\citet{baldry2004color} suggests the existence of $2$ galaxy subpopulations:
+a passively evolving red galaxy subpopulation and a blue star-forming galaxy subpopulation.
+A $2$-component mixture fitted on the data suggests that there cannot be a continuous evolution and the rapid change of galaxies in these $2$ subpopulations is due to galaxy merger.</p>
+<p>In machine learning, finite mixtures are often used as probabilistic models for clustering analysis~\citep{bishop2006pattern}.
+The finite mixture model is used in~\citet{fraley2002model} to cluster breast cancer patients into different groups.
+Clinically, doctors generally divide the tumours into either malignant or benign types.
+Their analysis suggests that there may be $3$ groups suggesting that the malignant tumour may be in different stages.
+The finding based on mixture model is clinically important to determine an appropriate course of action for malignancy.
+In a clinical example in~\citet{baudry2010combining}, the Gaussian mixture is used to study the development of the graft-versus-host disease (GvHD).
+GvHD occurs in allogeneic hematopoietic stem cell transplant recipients when donor-immune cells in the graft attack the skin, gut, liver, and other tissues of the recipient.
+GvHD is diagnosed by clinical and histologic criteria that are often nonspecific and it is typically apparent only after the disease is well established.
+In their study, a mixture model is fitted to the bio-marker of GvHD positive patient data and the result suggests the existence of $4$ cell subpopulations.
+These cell subpopulations correspond to colour combinations of lymphocyte phenotypic and activation markers at progressive time points post transplant.</p>
+<p>It is often cited~\citep{titterington1985statistical,nguyen2020approximation} that there always exists a Gaussian mixture whose density function is arbitrarily close to any density function.
+For example, the kernel density estimate with Gaussian kernel and proper bandwidth is consistent for any continuous density function that varnishes at infinity.
+\todo{reference}
+Finite mixtures are therefore also broadly used as a parametric model to approximate distributions with unknown shapes.
+Figure~\ref{fig:gmm_density} gives density functions of Gaussian mixtures with various shapes, demonstrating their ability to approximate an arbitrary density.
+\begin{figure}[htbp]
+\centering   <br>
+\includegraphics[width=0.24\textwidth]{figure/misc/skewed_unimodal_density.png}
+\includegraphics[width=0.24\textwidth]{figure/misc/strongly_skewed_density.png}
+\includegraphics[width=0.24\textwidth]{figure/misc/bimodal_density.png}
+\includegraphics[width=0.24\textwidth]{figure/misc/asymmetric_bimodal_density.png}\
+\includegraphics[width=0.24\textwidth]{figure/misc/claw_density.png}
+\includegraphics[width=0.24\textwidth]{figure/misc/asymmetric_claw_density.png}
+\includegraphics[width=0.24\textwidth]{figure/misc/discrete_comb.png}
+\includegraphics[width=0.24\textwidth]{figure/misc/double_claw_density.png}
+\caption{Density function of Gaussian mixtures with various shapes in \citet[Section 1.5]{mclachlan2004finite}.}
+\label{fig:gmm_density}
+\end{figure}
+In system design in engineering, the shape of the distribution of the design life of systems can vary considerably.
+\citet{buvcar2004reliability} proposes to approximate the density functions of these distributions by finite Weibull mixtures.
+In~\citet{santosh2013tracking},<del>\citet{brubaker2015map}, and</del>\citet{yu2018density}, the Gaussian mixtures are used to approximate density functions in Bayesian inference procedures under hidden Markov models for the task of object tracking in video sequences.</p>
+<p>\subsubsection{Commonly Used Models for Subpopulation}
+There are a lot of choices for the subpopulation distribution family $\gF$. We give several examples of the most commonly used models below.</p>
+<p>The finite Gaussian mixtures are by far the most studied finite mixture model.
+For example,<del>\citet{lo2001testing},</del>\citet{chen2009hypothesis}, and~\citet{chen2012inference} study the problem of testing the order of a Gaussian mixture.
+The \texttt{mclust} package in \texttt{R}<del>\citep{scrucca2016mclust} is developed for using finite Gaussian mixtures for model based clustering, classification, and density estimation in applications.
+\citet{xu1996convergence} studies the convergence of the \ac{EM} algorithm under finite Gaussian mixtures.
+Various learning approaches under finite Gaussian mixtures</del>\citep{vlassis2002greedy,pernkopf2005genetic,constantinopoulos2007unsupervised} are also studied.
+We give the density function of finite Gaussian mixtures in the following example.</p>
+<h1 id="phi-x--mu-sigma">\begin{example}[Finite Gaussian Mixture]
+As the name suggests, a finite Gaussian mixture is a mixture of Gaussian distributions.
+A $d$-dimensional Gaussian distribution with mean vector $\mu$ and
+covariance matrix $\Sigma$ has density function given by
+[
+\phi (x ; \mu, \Sigma)</h1>
+<p>\det(2\pi\Sigma)^{-1/2}
+\exp \left {-\frac{1}{2}(x-\mu)^\top \Sigma^{-1}(x-\mu) \right }
+]
+where $\text{det}(\cdot)$ is the determinant of a square matrix.
+We denote by $\Phi(x; \mu, \Sigma)$ its \acs{CDF}.
+We denote the density of a finite \ac{GMM} of order $K$ and its \acs{CDF} by
+[
+\phi(x; G)  = \sum_{k=1}^K w_k \phi(x; \mu_k,\Sigma_k);\quad
+\Phi(x; G)  = \sum_{k=1}^K w_k \Phi (x; \mu_k,\Sigma_k).
+]
+Under the finite \acs{GMM}, the subpopulation parameter is $\theta=(\mu, \Sigma)$ with its parameter space  $\Theta = \sR^d \times \sS_{+}^{d}$ where $\sS_{+}^{d}$ is the space of all $d\times d$ positive definite matrices.
+\end{example}</p>
+<p>Binomial and Poisson mixtures are also broadly investigated in the literature and used in applications.
+In genetics, the number of recombinants of a family with $K$ offspring has binomial mixture distribution in the presence of genetic mutations~\citep{chernoff1995asymptotic}.
+The Poisson mixture model is well motivated for count data such as the number of patents~\citep{wang1998analysis} and the spinal tumour counts for patients with the disease neurofibromatosis 2~\citep{joe2005generalized}.
+The Gamma mixtures are often used to model household income distribution~\citep{he2021strong}.
+These mixtures may be regarded as special cases where the subpopulation distribution family of the mixture, $\gF$, is an exponential family.
+The exponential family is defined as follows.</p>
+<p>\begin{definition}[Exponential Family]
+An exponential family is defined as a distribution family whose densities can be represented as
+[
+f(x; \theta) = \exp{\theta^{\top} T(x) - A(\theta)}h(x)
+]
+with respect to some reference measure $\nu(\cdot)$.
+In this definition, the vector $\theta = (\theta_1, \theta_2,\ldots,\theta_m)^{\top}$ is called the natural parameter.
+The natural sufficient statistics is the vector $T(x)=(T_1(x), T_2(x),\ldots, T_m(x))^{\top}$.
+The function $h(x)$ modifies the reference measure $\nu(\cdot)$ and the log-partition $A(\theta)$ is a normalization constant that does not depend on $x$.
+The parameter space of $\theta$ is usually expanded to be
+[
+\Theta = \left{ \theta\in\sR^{m}: \int \exp{\theta^{\top}T(x)},\nu(dx)&lt;\infty \right}.
+]
+\end{definition}
+In Table~\ref{tab:exp_family}, we list widely used exponential families with their sufficient statistics and parameter space.
+We do not include the reference measure $\nu(\cdot)$ and $h(x)$ as they are not relevant in statistical inferences.</p>
+<p>\begin{table}[htb]
+\centering
+\caption{The natural sufficient statistics, natural parameter, and parameter space of some widely used exponential distribution families.}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llll}
+\toprule
+Name of $\gF$ &amp; $T(x)$ &amp; $A(\theta)$ &amp; $\Theta$\
+\midrule
+\multicolumn{4}{c}{Univariate discrete distributions}\
+Binomial &amp; $x$ &amp; $\log {1 + \exp(\theta)}$ &amp; $\sR$\
+Poisson &amp; $x$ &amp; $\exp(\theta)$ &amp; $\sR$\
+\midrule
+\multicolumn{4}{c}{Univariate continuous distributions}\
+Exponential &amp;
+$x$ &amp; $-\log(-\theta)$ &amp; $(-\infty, 0)$ \
+Weibull (known $k$) &amp;<br>
+$x^k$ &amp; $-\log(-\theta)$ &amp;  $(-\infty, 0)$ \
+Laplace (known $\mu$) &amp;
+$|x-\mu|$  &amp;  $\log(-2/\theta)$ &amp; $(-\infty, 0)$\
+Rayleigh &amp;
+$x^2$ &amp; $-\log(-2\theta)$ &amp; $(-\infty, 0)$\
+Log-normal &amp;
+$(\log x, \log^2 x)^{\top}$ &amp;
+$-\theta_1^2/\theta_2-1/\sqrt{2\theta_2}$ &amp; $\sR \times (-\infty, 0)$ \
+Gamma &amp;
+$(\log x, x)^{\top}$ &amp;
+$\log\Gamma(\theta_1+1)-(\theta_1+1)\log(-\theta_2)$ &amp; $(-1, \infty) \times(-\infty, 0)$\
+Inverse Gamma &amp; $(\log x, 1/x)^{\top}$
+&amp; $\log\Gamma(-\theta_1-1))+(\theta_1+1)\log(-\theta_2)$ &amp; $(-\infty, -1)\times (-\infty, 0)$\
+\bottomrule
+\end{tabular}}
+\label{tab:exp_family}
+\end{table}</p>
+<p>Another well investigated class of mixture models have location-scale families as their subpopulation model $\gF$.
+Let $f_0(x)$ be the distribution of a univariate random variable with support $x \in \sR$.
+A location-scale distribution family is formed by all distributions with density function
+\begin{equation*}
+f(x; \theta) = \frac{1}{\sigma} f_0 \left(\frac{x-\mu}{\sigma} \right)
+\end{equation*}
+for $\theta = (\mu, \sigma)^{\top}$ and parameter space $\Theta = \sR \times (0, \infty)$.
+Some examples of $f_0(x)$ are:
+\begin{itemize}
+\item
+Univariate Gaussian distribution: $f_0(x)=\phi(x;0,1)$;
+\item
+Logistic distribution: $f_0(x) = \exp(-x)/{1+\exp(-x)}^2$;
+\item
+Gumbel distribution (type I extreme-value distribution): $f_0(x)= \exp{-x-\exp(-x)}$.
+\end{itemize}</p>
+<p>\citet{naya2006logistic} uses logistic mixture for thermogravimetric analysis and \citet{salimans2017pixelcnn++} uses this model for image analysis.
+The Weibull mixture is used by~\citet{hernandez2006weibull} to characterize end-to-end network delays and by~\citet{marin2005using} to model the life time of patients with lupus nephritis.
+\citet{zhang2006fitting} applies a mixture of Weibull distribution to model irregular diameter distribution of forest stands.
+The Weibull mixture is also used by~\cite{carta2007analysis} to model the distribution of wind speed.</p>
+<h3 id="what-is-gaussian-mixture-reduction-gmr">What is Gaussian mixture reduction (GMR)<a hidden class="anchor" aria-hidden="true" href="#what-is-gaussian-mixture-reduction-gmr">#</a></h3>
+<h4 id="applications-of-gmr">Applications of GMR<a hidden class="anchor" aria-hidden="true" href="#applications-of-gmr">#</a></h4>
+<p><a href="https://soulhackerslabs.com/recursive-state-estimation-with-kalman-filters-and-ros-2-b869d3775357">Kalman filter</a></p>
+<h4 id="existing-approaches-for-gmr">Existing approaches for GMR<a hidden class="anchor" aria-hidden="true" href="#existing-approaches-for-gmr">#</a></h4>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://sarahqiong.github.io/tags/gmm/">Gmm</a></li>
+      <li><a href="https://sarahqiong.github.io/tags/statistics/">Statistics</a></li>
+      <li><a href="https://sarahqiong.github.io/tags/clustering/">Clustering</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://sarahqiong.github.io/">Qiong Zhang | 张琼</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
