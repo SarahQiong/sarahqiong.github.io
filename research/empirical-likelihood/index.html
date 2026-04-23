@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Research thrust: Empirical likelihood in Modern AI | Qiong Zhang | 张琼</title>
+<meta name="keywords" content="">
+<meta name="description" content="Empirical likelihood for intelligent federated learning, handling label noise, and beyond.">
+<meta name="author" content="Qiong Zhang">
+<link rel="canonical" href="https://sarahqiong.github.io/research/empirical-likelihood/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.291c3717b247a9bec5abbfce6636f44a811587d18038709499a65332ccc20b6a.css" integrity="sha256-KRw3F7JHqb7Fq7/OZjb0SoEVh9GAOHCUmaZTMszCC2o=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://sarahqiong.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://sarahqiong.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://sarahqiong.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://sarahqiong.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://sarahqiong.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://sarahqiong.github.io/research/empirical-likelihood/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://sarahqiong.github.io/research/empirical-likelihood/">
+  <meta property="og:site_name" content="Qiong Zhang | 张琼">
+  <meta property="og:title" content="Research thrust: Empirical likelihood in Modern AI">
+  <meta property="og:description" content="Empirical likelihood for intelligent federated learning, handling label noise, and beyond.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="research">
+    <meta property="article:published_time" content="2024-01-01T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-01-01T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Research thrust: Empirical likelihood in Modern AI">
+<meta name="twitter:description" content="Empirical likelihood for intelligent federated learning, handling label noise, and beyond.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "",
+      "item": "https://sarahqiong.github.io/research/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Research thrust: Empirical likelihood in Modern AI",
+      "item": "https://sarahqiong.github.io/research/empirical-likelihood/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Research thrust: Empirical likelihood in Modern AI",
+  "name": "Research thrust: Empirical likelihood in Modern AI",
+  "description": "Empirical likelihood for intelligent federated learning, handling label noise, and beyond.",
+  "keywords": [
+    
+  ],
+  "articleBody": "Overview Empirical likelihood (EL) [1] is a classical nonparametric framework that enables likelihood-based inference — confidence intervals, likelihood ratio tests, etc. — without specifying parametric assumptions on the data-generating process. This framework was later reinterpreted as a way to integrate data across heterogeneous populations via density ratio modeling [2–7]. Specifically, instead of estimating each population’s distribution separately, a baseline distribution is modeled nonparametrically and related to that of each population via multiplicative tilts.\nWhile much of the classical literature on EL has focused on traditional problems such as goodness-of-fit testing or capture–recapture analysis, my research modernizes EL for AI and machine learning, leveraging neural networks to enrich density ratio modeling while conversely using EL to inspire new algorithmic paradigms.\nApplication 1: Reimagining FL — From aggregation to guidance In federated learning (FL), multiple clients — such as hospitals — collaboratively train models without sharing raw data. Existing FL methods primarily focus on aggregating updates from clients into a single global model, but this often underutilizes the rich heterogeneity present across sites. For instance, hospitals may specialize in different patient subgroups, suggesting that client diversity should be leveraged rather than suppressed.\nWe use EL to reimagine FL, shifting the paradigm from aggregation to guidance [8]. Focusing on multi-class classification, we formulate a density ratio model to allow for constrained heterogeneity across classes and clients. After profiling out the nonparametric baseline, the resulting loss function decomposes naturally into two cross-entropy terms:\none that encourages accuracy for predicting the class label of each individual, and another for identifying which client they originate from. We formulate an efficient algorithm to optimize this loss function while respecting FL data-sharing constraints. Beyond more efficient data pooling, our EL approach proposes a paradigm shift: the central server acts not only as an aggregator but as an intelligent router, directing new tasks or queries to the client most specialized for them (Figure 1). This new perspective transforms client diversity from a challenge into an asset.\nFigure 1: Cartoon illustration. The FL server as an intelligent router: leveraging learned data distributions to direct queries to the most specialized client, rather than applying a global model. Key paper: Wang, Z., Zhang, X., Zhang, X., Liu, Y., and Zhang, Q. (2026). Beyond Aggregation: Guiding Clients in Heterogeneous Federated Learning. ICLR 2026.Paper link\nApplication 2: Learning from noisy labels Label noise is a pervasive challenge in real-world machine learning. Datasets often contain annotation mistakes, disagreement between annotators, or ambiguity in label definitions. Even widely used benchmarks are not immune, and in specialized domains such as healthcare, label uncertainty is often unavoidable. Studies estimate that roughly 5% of labels are incorrect [9], with additional evidence of noise in datasets like MNIST and ImageNet [10], and in CheXpert, where radiology reports can lead to systematic mislabeling [11]. Ignoring such noise causes models to fit corrupted labels rather than recover the underlying signal.\nThis issue becomes more critical in high-stakes settings, where different types of errors carry very different consequences. For example, failing to detect a serious disease is far more costly than a false alarm, and approving a fraudulent transaction is riskier than rejecting a legitimate one. In such settings, the goal is not just high overall accuracy, but reliable control of specific types of errors.\nWe use empirical likelihood (EL) to develop a principled framework for learning under label noise in multiclass classification. Rather than treating noisy labels as a preprocessing problem, we explicitly model how noisy labels relate to the underlying true labels.\nThe key insight is twofold:\nThe feature distributions across classes are naturally linked through a density ratio model. The distribution of features given a noisy label can be expressed as a convex combination of the clean class-conditional distributions. These observations allow all relevant distributions to be represented as parametric tilts of a common reference distribution. Leveraging EL, we estimate this reference distribution nonparametrically and recover the tilting parameters through profiling—yielding estimators that target the underlying clean-label quantities.\nA central challenge in this problem is that, without additional structure, learning from noisy labels is fundamentally non-identifiable: different underlying truths can produce the same observed data. Our work shows that the density ratio structure resolves this issue. Under mild conditions, it allows us to uniquely recover the key quantities needed for learning—without requiring prior knowledge of the noise mechanism. To our knowledge, this type of identifiability result is new in this setting.\nBuilding on this, we develop an EL-based estimation procedure that is both statistically principled and computationally practical. The method achieves standard statistical guarantees (consistency and asymptotic normality), and can be efficiently implemented via an EM algorithm, with a simple weighted logistic regression step. We then integrate these estimates into the Neyman–Pearson multiclass classification (NPMC) framework [12], which minimizes weighted misclassification risk subject to constraints on class-specific error rates. Such guarantees are essential in applications where certain mistakes must be strictly controlled.\nWhen label noise is ignored, NPMC can become overly conservative, leading to inflated errors elsewhere. By contrast, our EL-based approach achieves robust and theoretically grounded control of class-specific errors, even in the presence of corrupted labels—and provides, to our knowledge, the first such guarantees in the multiclass setting without assuming knowledge of the noise process.\nThis line of work reflects a broader goal: using empirical likelihood to bring statistical rigor and interpretability to modern machine learning problems involving imperfect data.\nKey paper: Zhang, Q., Tian, Q., and Li, P. (2025). Neyman–Pearson Multiclass Classification under Label Noise. arXiv preprint. Paper link\nReferences Owen, A. B. (2001). Empirical Likelihood. Chapman and Hall/CRC. Qin, J. and Zhang, B. (1997). A goodness-of-fit test for logistic regression models based on case-control data. Biometrika, 84(3), 609–618. Fokianos, K., Kedem, B., Qin, J., and Short, D. A. (2001). A semiparametric approach to the one-way layout. Technometrics, 43(1), 56–65. Chen, J. and Liu, Y. (2013). Quantile and quantile-function estimations under density ratio model. The Annals of Statistics, 41(3), 1669–1692. Li, P., Liu, Y., and Qin, J. (2017). Semiparametric inference in a genetic mixture model. Journal of the American Statistical Association, 112(519), 1250–1260. Liu, Y., Li, P., and Qin, J. (2017). Maximum empirical likelihood estimation for abundance in a closed population from capture-recapture data. Biometrika, 104(3), 527–543. Liu, S. et al. (2025). Positive and Unlabeled Data: Model, Estimation, Inference, and Classification. Journal of the American Statistical Association, pp. 1–12. Wang, Z., Zhang, X., Zhang, X., Liu, Y., and Zhang, Q. (2026). Beyond Aggregation: Guiding Clients in Heterogeneous Federated Learning. ICLR 2026. Yao, S., Rava, B., Tong, X., and James, G. (2023). Asymmetric error control under imperfect supervision: a label-noise-adjusted Neyman–Pearson umbrella algorithm. Journal of the American Statistical Association, 118(543), 1824–1836. Northcutt, C., Jiang, L., and Chuang, I. (2021). Confident learning: Estimating uncertainty in dataset labels. Journal of Artificial Intelligence Research, 70, 1373–1411. Irvin, J. et al. (2019). CheXpert: A large chest radiograph dataset with uncertainty labels and expert comparison. AAAI 2019, 33(01), 590–597. Tian, Y. and Feng, Y. (2025). Neyman-Pearson Multi-class Classification via Cost-sensitive Learning. Journal of the American Statistical Association, 120(550), 1164–1177. ",
+  "wordCount" : "1166",
+  "inLanguage": "en",
+  "datePublished": "2024-01-01T00:00:00Z",
+  "dateModified": "2024-01-01T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Qiong Zhang"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://sarahqiong.github.io/research/empirical-likelihood/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Qiong Zhang | 张琼",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sarahqiong.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://sarahqiong.github.io/" accesskey="h" title="Qiong Zhang | 张琼 (Alt + H)">Qiong Zhang | 张琼</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://sarahqiong.github.io/about/" title="About me">
+                    <span>About me</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://sarahqiong.github.io/news/" title="News">
+                    <span>News</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://sarahqiong.github.io/research/" title="Research">
+                    <span>Research</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://sarahqiong.github.io/teaching/" title="Teaching">
+                    <span>Teaching</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://sarahqiong.github.io/blog/" title="Blog">
+                    <span>Blog</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Research thrust: Empirical likelihood in Modern AI
+    </h1>
+    <div class="post-meta"><span title='2024-01-01 00:00:00 +0000 UTC'>January 1, 2024</span>&nbsp;·&nbsp;6 min&nbsp;·&nbsp;Qiong Zhang
+
+</div>
+  </header> <div class="toc">
+    <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#overview" aria-label="Overview">Overview</a></li>
+                <li>
+                    <a href="#application-1-reimagining-fl--from-aggregation-to-guidance" aria-label="Application 1: Reimagining FL — From aggregation to guidance">Application 1: Reimagining FL — From aggregation to guidance</a></li>
+                <li>
+                    <a href="#application-2-learning-from-noisy-labels" aria-label="Application 2: Learning from noisy labels">Application 2: Learning from noisy labels</a></li>
+                <li>
+                    <a href="#references" aria-label="References">References</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h2 id="overview">Overview<a hidden class="anchor" aria-hidden="true" href="#overview">#</a></h2>
+<p>Empirical likelihood (EL) <a href="#ref1">[1]</a> is a classical nonparametric framework that enables likelihood-based inference — confidence intervals, likelihood ratio tests, etc. — without specifying parametric assumptions on the data-generating process.
+This framework was later reinterpreted as a way to integrate data across heterogeneous populations via density ratio modeling <a href="#ref2">[2–7]</a>.
+Specifically, instead of estimating each population&rsquo;s distribution separately, a baseline distribution is modeled nonparametrically and related to that of each population via multiplicative tilts.</p>
+<p>While much of the classical literature on EL has focused on traditional problems such as goodness-of-fit testing or capture–recapture analysis, my research <strong>modernizes EL for AI and machine learning</strong>, leveraging neural networks to enrich density ratio modeling while conversely using EL to inspire new algorithmic paradigms.</p>
+<hr>
+<h2 id="application-1-reimagining-fl--from-aggregation-to-guidance">Application 1: Reimagining FL — From aggregation to guidance<a hidden class="anchor" aria-hidden="true" href="#application-1-reimagining-fl--from-aggregation-to-guidance">#</a></h2>
+<p>In federated learning (FL), multiple clients — such as hospitals — collaboratively train models without sharing raw data.
+Existing FL methods primarily focus on aggregating updates from clients into a single global model, but this often underutilizes the rich heterogeneity present across sites.
+For instance, hospitals may specialize in different patient subgroups, suggesting that client diversity should be <strong>leveraged rather than suppressed</strong>.</p>
+<p>We use EL to <strong>reimagine FL, shifting the paradigm from aggregation to guidance</strong> <a href="#ref8">[8]</a>. Focusing on multi-class classification, we formulate a density ratio model to allow for constrained heterogeneity across classes and clients.
+After profiling out the nonparametric baseline, the resulting loss function decomposes naturally into two cross-entropy terms:</p>
+<ul>
+<li>one that encourages accuracy for predicting the <strong>class label</strong> of each individual, and</li>
+<li>another for identifying which <strong>client</strong> they originate from.</li>
+</ul>
+<p>We formulate an efficient algorithm to optimize this loss function while respecting FL data-sharing constraints.
+Beyond more efficient data pooling, our EL approach proposes a paradigm shift: <strong>the central server acts not only as an aggregator but as an intelligent router</strong>, directing new tasks or queries to the client most specialized for them (Figure 1).
+This new perspective transforms client diversity from a challenge into an asset.</p>
+<div style="margin: 1em auto; text-align: center; max-width: 400px;">
+  <img src="/images/research_interest/FedDRM-mainfig.jpg" alt="FL server as intelligent router" style="width: 70%; border-radius: 4px; display: block; margin: 0 auto;">
+  <p style="font-size: 0.7em; color: #666; margin-top: 0.3em;">
+    <strong>Figure 1: Cartoon illustration.</strong> The FL server as an intelligent router: leveraging learned data distributions to direct queries to the most specialized client, rather than applying a global model.
+  </p>
+</div>
+<p><strong>Key paper:</strong> Wang, Z., Zhang, X., Zhang, X., Liu, Y., and Zhang, Q. (2026). Beyond Aggregation: Guiding Clients in Heterogeneous Federated Learning. <em>ICLR 2026</em>.<a href="https://openreview.net/forum?id=RZT1ixYGk1">Paper link</a></p>
+<hr>
+<h2 id="application-2-learning-from-noisy-labels">Application 2: Learning from noisy labels<a hidden class="anchor" aria-hidden="true" href="#application-2-learning-from-noisy-labels">#</a></h2>
+<p>Label noise is a pervasive challenge in real-world machine learning. Datasets often contain annotation mistakes, disagreement between annotators, or ambiguity in label definitions. Even widely used benchmarks are not immune, and in specialized domains such as healthcare, label uncertainty is often unavoidable. Studies estimate that roughly 5% of labels are incorrect <a href="#ref9">[9]</a>, with additional evidence of noise in datasets like MNIST and ImageNet <a href="#ref10">[10]</a>, and in CheXpert, where radiology reports can lead to systematic mislabeling <a href="#ref11">[11]</a>. Ignoring such noise causes models to fit corrupted labels rather than recover the underlying signal.</p>
+<p>This issue becomes more critical in high-stakes settings, where different types of errors carry very different consequences.
+For example, failing to detect a serious disease is far more costly than a false alarm, and approving a fraudulent transaction is riskier than rejecting a legitimate one. In such settings, the goal is not just high overall accuracy, but reliable control of specific types of errors.</p>
+<p>We use empirical likelihood (EL) to develop a principled framework for learning under label noise in multiclass classification.
+Rather than treating noisy labels as a preprocessing problem, we explicitly model how noisy labels relate to the underlying true labels.</p>
+<p>The key insight is twofold:</p>
+<ul>
+<li>The feature distributions across classes are naturally linked through a density ratio model.</li>
+<li>The distribution of features given a noisy label can be expressed as a convex combination of the clean class-conditional distributions.</li>
+</ul>
+<p>These observations allow all relevant distributions to be represented as parametric tilts of a common reference distribution.
+Leveraging EL, we estimate this reference distribution nonparametrically and recover the tilting parameters through profiling—yielding estimators that target the underlying clean-label quantities.</p>
+<p>A central challenge in this problem is that, without additional structure, learning from noisy labels is fundamentally non-identifiable: different underlying truths can produce the same observed data.
+Our work shows that the density ratio structure resolves this issue. Under mild conditions, it allows us to uniquely recover the key quantities needed for learning—without requiring prior knowledge of the noise mechanism. To our knowledge, this type of identifiability result is new in this setting.</p>
+<p>Building on this, we develop an EL-based estimation procedure that is both statistically principled and computationally practical.
+The method achieves standard statistical guarantees (consistency and asymptotic normality), and can be efficiently implemented via an EM algorithm, with a simple weighted logistic regression step. We then integrate these estimates into the Neyman–Pearson multiclass classification (NPMC) framework <a href="#ref12">[12]</a>, which minimizes weighted misclassification risk subject to constraints on class-specific error rates. Such guarantees are essential in applications where certain mistakes must be strictly controlled.</p>
+<p>When label noise is ignored, NPMC can become overly conservative, leading to inflated errors elsewhere.
+By contrast, our EL-based approach achieves robust and theoretically grounded control of class-specific errors, even in the presence of corrupted labels—and provides, to our knowledge, the first such guarantees in the multiclass setting without assuming knowledge of the noise process.</p>
+<p>This line of work reflects a broader goal: using empirical likelihood to bring statistical rigor and interpretability to modern machine learning problems involving imperfect data.</p>
+<p><strong>Key paper:</strong> Zhang, Q., Tian, Q., and Li, P. (2025). Neyman–Pearson Multiclass Classification under Label Noise.
+<em>arXiv preprint</em>. <a href="https://arxiv.org/pdf/2603.21623">Paper link</a></p>
+<hr>
+<h2 id="references">References<a hidden class="anchor" aria-hidden="true" href="#references">#</a></h2>
+<ol style="font-size: 0.85em;">
+<li id="ref1">Owen, A. B. (2001). <em>Empirical Likelihood</em>. Chapman and Hall/CRC.</li>
+<li id="ref2">Qin, J. and Zhang, B. (1997). A goodness-of-fit test for logistic regression models based on case-control data. <em>Biometrika</em>, 84(3), 609–618.</li>
+<li id="ref3">Fokianos, K., Kedem, B., Qin, J., and Short, D. A. (2001). A semiparametric approach to the one-way layout. <em>Technometrics</em>, 43(1), 56–65.</li>
+<li id="ref4">Chen, J. and Liu, Y. (2013). Quantile and quantile-function estimations under density ratio model. <em>The Annals of Statistics</em>, 41(3), 1669–1692.</li>
+<li id="ref5">Li, P., Liu, Y., and Qin, J. (2017). Semiparametric inference in a genetic mixture model. <em>Journal of the American Statistical Association</em>, 112(519), 1250–1260.</li>
+<li id="ref6">Liu, Y., Li, P., and Qin, J. (2017). Maximum empirical likelihood estimation for abundance in a closed population from capture-recapture data. <em>Biometrika</em>, 104(3), 527–543.</li>
+<li id="ref7">Liu, S. et al. (2025). Positive and Unlabeled Data: Model, Estimation, Inference, and Classification. <em>Journal of the American Statistical Association</em>, pp. 1–12.</li>
+<li id="ref8">Wang, Z., Zhang, X., Zhang, X., Liu, Y., and Zhang, Q. (2026). Beyond Aggregation: Guiding Clients in Heterogeneous Federated Learning. <em>ICLR 2026</em>. </li>
+<li id="ref9">Yao, S., Rava, B., Tong, X., and James, G. (2023). Asymmetric error control under imperfect supervision: a label-noise-adjusted Neyman–Pearson umbrella algorithm. <em>Journal of the American Statistical Association</em>, 118(543), 1824–1836.</li>
+<li id="ref10">Northcutt, C., Jiang, L., and Chuang, I. (2021). Confident learning: Estimating uncertainty in dataset labels. <em>Journal of Artificial Intelligence Research</em>, 70, 1373–1411.</li>
+<li id="ref11">Irvin, J. et al. (2019). CheXpert: A large chest radiograph dataset with uncertainty labels and expert comparison. <em>AAAI 2019</em>, 33(01), 590–597.</li>
+<li id="ref12">Tian, Y. and Feng, Y. (2025). Neyman-Pearson Multi-class Classification via Cost-sensitive Learning. <em>Journal of the American Statistical Association</em>, 120(550), 1164–1177.</li>
+</ol>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://sarahqiong.github.io/">Qiong Zhang | 张琼</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

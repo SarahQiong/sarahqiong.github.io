@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Research thrust: Tabular foundation models and in-context learning | Qiong Zhang | 张琼</title>
+<meta name="keywords" content="">
+<meta name="description" content="Tabular foundation models and in-context learning for statistical tasks.">
+<meta name="author" content="Qiong Zhang">
+<link rel="canonical" href="https://sarahqiong.github.io/research/tabular-foundation-models/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.291c3717b247a9bec5abbfce6636f44a811587d18038709499a65332ccc20b6a.css" integrity="sha256-KRw3F7JHqb7Fq7/OZjb0SoEVh9GAOHCUmaZTMszCC2o=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://sarahqiong.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://sarahqiong.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://sarahqiong.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://sarahqiong.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://sarahqiong.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://sarahqiong.github.io/research/tabular-foundation-models/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://sarahqiong.github.io/research/tabular-foundation-models/">
+  <meta property="og:site_name" content="Qiong Zhang | 张琼">
+  <meta property="og:title" content="Research thrust: Tabular foundation models and in-context learning">
+  <meta property="og:description" content="Tabular foundation models and in-context learning for statistical tasks.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="research">
+    <meta property="article:published_time" content="2024-01-01T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-01-01T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Research thrust: Tabular foundation models and in-context learning">
+<meta name="twitter:description" content="Tabular foundation models and in-context learning for statistical tasks.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "",
+      "item": "https://sarahqiong.github.io/research/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Research thrust: Tabular foundation models and in-context learning",
+      "item": "https://sarahqiong.github.io/research/tabular-foundation-models/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Research thrust: Tabular foundation models and in-context learning",
+  "name": "Research thrust: Tabular foundation models and in-context learning",
+  "description": "Tabular foundation models and in-context learning for statistical tasks.",
+  "keywords": [
+    
+  ],
+  "articleBody": "Overview Foundation models — large models pretrained on broad data sources and adaptable to diverse downstream tasks — have transformed areas such as natural language processing and computer vision [1]. With the emergence of tabular foundation models, this trend has started to percolate into tabular data analysis, which has been traditionally dominated by classical statistical methods.\nA leading example is TabPFN v2 [2-5], a transformer-based neural network pretrained entirely on synthetic data, claimed to outperform all previous methods for regression and classification on datasets with up to 10,000 samples, while also being capable of data generation, density estimation, learning reusable embeddings, and fine-tuning. If these claims hold broadly, TabPFN has the potential to supersede existing approaches across a wide range of statistical tasks, mirroring the LLM revolution in natural language processing.\nWhat is in-context learning? In-context learning (ICL), originally observed as a property of LLMs, can be reframed statistically as a form of meta-learning: instead of fitting a separate model for each dataset, one pretrains a model to learn a mapping M from the space of datasets to a space of possible values for a quantity of interest (e.g., regression functions). Given a new dataset, M can be applied immediately to yield an estimate — with no retraining required.\nTabPFN combines ICL with a Bayesian perspective, implementing it as amortized Bayesian inference:\nA prior is placed on the space of joint distributions over covariate–label pairs. A given dataset is assumed to be drawn i.i.d. from a fixed joint distribution. Given a new test point x, the model approximates the posterior predictive distribution for its label by integrating over all plausible data-generating distributions consistent with the observed data. While most approximation techniques attempt to approximate the posterior for a fixed dataset, TabPFN is pretrained to approximate this mapping jointly over all datasets and test points. Because pretraining is performed using synthetic datasets generated from a prior, TabPFN is called a prior-fitted network (PFN).\nEvaluating TabPFN beyond supervised prediction In recent work [6], we evaluated the capabilities of TabPFN beyond supervised prediction. Strikingly, we found that when used out of the box, it outperforms specialized methods in:\nSemi-supervised parameter estimation Prediction under covariate shift Heterogeneous treatment effect estimation It even surpasses LASSO in sparse regression, despite not being designed for linear sparsity, and breaks robustness–efficiency trade-offs in classification. These findings suggest that TabPFN — and more broadly the ICL/PFN learning paradigm — has the potential to supersede existing approaches across a wide range of statistical tasks, with broad methodological and practical implications.\nKey paper: Zhang, Q., Tan, Y. S., Tian, Q.*, and Li, P. (2025). TabPFN: One Model to Rule Them All? arXiv preprint (major revision at JASA). Paper link\nPFN for clustering Clustering is a fundamental unsupervised learning task, but it becomes substantially more challenging in realistic settings where both the number of clusters and the cluster assignments are unknown. In contrast to supervised learning, there is no ground-truth label structure available during training, and the underlying grouping of the data must be inferred entirely from the observed features. This creates a joint inference problem: one must simultaneously determine how many clusters are present and how each data point should be assigned. These two goals are tightly coupled, yet most classical methods treat them separately—for example, by fixing the number of clusters in advance or selecting it through external model selection criteria such as BIC, cross-validation, or heuristic elbow methods. In practice, however, there is no universally reliable criterion for selecting the number of clusters, and the absence of ground truth also makes it difficult to define a meaningful and consistent evaluation metric.\nWe use the prior-fitted network (PFN) framework to address this challenge from a different perspective. PFNs are trained on large collections of synthetic tasks generated from a flexible prior, allowing them to learn how to perform inference across a wide range of data-generating mechanisms. This shifts the focus from designing a single clustering algorithm to learning a general inference procedure that can adapt to new datasets. However, directly applying PFNs to clustering is nontrivial. Unlike standard supervised tasks, clustering provides no explicit labels during training, and cluster identities are only identifiable up to permutation. Moreover, the output space itself is variable, since the number of clusters changes across datasets. This makes it difficult to directly define a supervised learning objective or a fixed prediction space for a neural network.\nIn TabClustPFN [7], our key idea is to reformulate clustering as a joint structured prediction problem, where the model must infer both the latent number of clusters and the corresponding cluster memberships simultaneously. Instead of treating the number of clusters as a separate preprocessing or model selection step, we embed it directly into the prediction target. We achieve this by constructing carefully designed prior datasets in which both the number of clusters and the cluster structures vary, enabling the PFN to learn a mapping from raw data to latent partition structure in a fully amortized manner. In this framework, the model learns to implicitly compare and reason over different clustering configurations, rather than relying on external selection criteria.\nThis leads to a unified inference procedure: given a new dataset, the trained PFN outputs both an estimate of the number of clusters and the corresponding cluster assignments in a single forward pass, without iterative optimization or repeated model fitting. The resulting approach is fast, adaptive, and robust across a wide range of clustering regimes, and it reframes clustering from a problem of algorithm design into a problem of learning how to infer structure directly from data.\nKey paper: Zhao, T., Wang, G., Tan, Y. S., and Zhang, Q. (2025). TabClustPFN: A Prior-Fitted Network for Tabular Data Clustering. arXiv preprint. Paper link\nReferences Bommasani, R. et al. (2021). On the opportunities and risks of foundation models. arXiv:2108.07258. Hollmann, N., Müller, S., Eggensperger, K., and Hutter, F. (2022). TabPFN: a transformer that solves small tabular classification problems in a second. NeurIPS 2022 First Table Representation Workshop. Nagler, T. (2023). Statistical foundations of prior-data fitted networks. International Conference on Machine Learning (ICML 2023), pp. 25660–25676. PMLR. Vetter, J., Gloeckler, M., Gedon, D., and Macke, J. H. (2025). Effortless, Simulation-Efficient Bayesian Inference using Tabular Foundation Models. arXiv:2504.17660. Müller, S., Reuter, A., Hollmann, N., Rügamer, D., and Hutter, F. (2025). Position: The Future of Bayesian Prediction Is Prior-Fitted. arXiv:2505.23947. Zhang, Q., Tan, Y. S., Tian, Q., and Li, P. (2025). TabPFN: One Model to Rule Them All? arXiv:2505.20003 (major revision at JASA). Dwivedi, R., Ho, N., Khamaru, K., Wainwright, M. J., Jordan, M. I., and Yu, B. (2019). Challenges with EM in application to weakly identifiable mixture models. arXiv:1902.00194. Harbrecht, H., Jakeman, J. D., and Zaspel, P. (2021). Cholesky-based experimental design for Gaussian process and kernel-based emulation and calibration. Communications in Computational Physics, 29(SAND-2020-12052J). Sandia National Lab. ",
+  "wordCount" : "1132",
+  "inLanguage": "en",
+  "datePublished": "2024-01-01T00:00:00Z",
+  "dateModified": "2024-01-01T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Qiong Zhang"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://sarahqiong.github.io/research/tabular-foundation-models/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Qiong Zhang | 张琼",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sarahqiong.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://sarahqiong.github.io/" accesskey="h" title="Qiong Zhang | 张琼 (Alt + H)">Qiong Zhang | 张琼</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://sarahqiong.github.io/about/" title="About me">
+                    <span>About me</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://sarahqiong.github.io/news/" title="News">
+                    <span>News</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://sarahqiong.github.io/research/" title="Research">
+                    <span>Research</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://sarahqiong.github.io/teaching/" title="Teaching">
+                    <span>Teaching</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://sarahqiong.github.io/blog/" title="Blog">
+                    <span>Blog</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Research thrust: Tabular foundation models and in-context learning
+    </h1>
+    <div class="post-meta"><span title='2024-01-01 00:00:00 +0000 UTC'>January 1, 2024</span>&nbsp;·&nbsp;6 min&nbsp;·&nbsp;Qiong Zhang
+
+</div>
+  </header> <div class="toc">
+    <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#overview" aria-label="Overview">Overview</a></li>
+                <li>
+                    <a href="#what-is-in-context-learning" aria-label="What is in-context learning?">What is in-context learning?</a></li>
+                <li>
+                    <a href="#evaluating-tabpfn-beyond-supervised-prediction" aria-label="Evaluating TabPFN beyond supervised prediction">Evaluating TabPFN beyond supervised prediction</a></li>
+                <li>
+                    <a href="#pfn-for-clustering" aria-label="PFN for clustering">PFN for clustering</a></li>
+                <li>
+                    <a href="#references" aria-label="References">References</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h2 id="overview">Overview<a hidden class="anchor" aria-hidden="true" href="#overview">#</a></h2>
+<p>Foundation models — large models pretrained on broad data sources and adaptable to diverse downstream tasks — have transformed areas such as natural language processing and computer vision <a href="#ref1">[1]</a>.
+With the emergence of tabular foundation models, this trend has started to percolate into tabular data analysis, which has been traditionally dominated by classical statistical methods.</p>
+<p>A leading example is <strong>TabPFN v2</strong> <a href="#ref2">[2-5]</a>, a transformer-based neural network pretrained entirely on synthetic data, claimed to outperform all previous methods for regression and classification on datasets with up to 10,000 samples, while also being capable of data generation, density estimation, learning reusable embeddings, and fine-tuning.
+If these claims hold broadly, TabPFN has the potential to supersede existing approaches across a wide range of statistical tasks, mirroring the LLM revolution in natural language processing.</p>
+<hr>
+<h2 id="what-is-in-context-learning">What is in-context learning?<a hidden class="anchor" aria-hidden="true" href="#what-is-in-context-learning">#</a></h2>
+<p>In-context learning (ICL), originally observed as a property of LLMs, can be reframed statistically as a form of <strong>meta-learning</strong>: instead of fitting a separate model for each dataset, one pretrains a model to learn a mapping <em>M</em> from the space of datasets to a space of possible values for a quantity of interest (e.g., regression functions).
+Given a new dataset, <em>M</em> can be applied immediately to yield an estimate — with no retraining required.</p>
+<p>TabPFN combines ICL with a <strong>Bayesian perspective</strong>, implementing it as amortized Bayesian inference:</p>
+<ol>
+<li>A prior is placed on the space of joint distributions over covariate–label pairs.</li>
+<li>A given dataset is assumed to be drawn i.i.d. from a fixed joint distribution.</li>
+<li>Given a new test point <em>x</em>, the model approximates the <strong>posterior predictive distribution</strong> for its label by integrating over all plausible data-generating distributions consistent with the observed data.</li>
+</ol>
+<p>While most approximation techniques attempt to approximate the posterior for a fixed dataset, TabPFN is pretrained to approximate this mapping jointly over all datasets and test points.
+Because pretraining is performed using synthetic datasets generated from a prior, TabPFN is called a <strong>prior-fitted network (PFN)</strong>.</p>
+<hr>
+<h2 id="evaluating-tabpfn-beyond-supervised-prediction">Evaluating TabPFN beyond supervised prediction<a hidden class="anchor" aria-hidden="true" href="#evaluating-tabpfn-beyond-supervised-prediction">#</a></h2>
+<p>In recent work <a href="#ref6">[6]</a>, we <strong>evaluated the capabilities of TabPFN beyond supervised prediction</strong>.
+Strikingly, we found that when used out of the box, it outperforms specialized methods in:</p>
+<ul>
+<li><strong>Semi-supervised parameter estimation</strong></li>
+<li><strong>Prediction under covariate shift</strong></li>
+<li><strong>Heterogeneous treatment effect estimation</strong></li>
+</ul>
+<p>It even surpasses LASSO in sparse regression, despite not being designed for linear sparsity, and breaks robustness–efficiency trade-offs in classification.
+These findings suggest that TabPFN — and more broadly the ICL/PFN learning paradigm — has the potential to supersede existing approaches across a wide range of statistical tasks, with broad methodological and practical implications.</p>
+<p><strong>Key paper:</strong> Zhang, Q.<sup><em></sup>, Tan, Y. S.<sup></em></sup>, Tian, Q.<sup>*</sup>, and Li, P. (2025).
+TabPFN: One Model to Rule Them All? <em>arXiv preprint</em> (major revision at JASA). <a href="https://arxiv.org/pdf/2505.20003">Paper link</a></p>
+<hr>
+<h2 id="pfn-for-clustering">PFN for clustering<a hidden class="anchor" aria-hidden="true" href="#pfn-for-clustering">#</a></h2>
+<p>Clustering is a fundamental unsupervised learning task, but it becomes substantially more challenging in realistic settings where both the number of clusters and the cluster assignments are unknown. In contrast to supervised learning, there is no ground-truth label structure available during training, and the underlying grouping of the data must be inferred entirely from the observed features. This creates a joint inference problem: one must simultaneously determine how many clusters are present and how each data point should be assigned. These two goals are tightly coupled, yet most classical methods treat them separately—for example, by fixing the number of clusters in advance or selecting it through external model selection criteria such as BIC, cross-validation, or heuristic elbow methods. In practice, however, there is no universally reliable criterion for selecting the number of clusters, and the absence of ground truth also makes it difficult to define a meaningful and consistent evaluation metric.</p>
+<p>We use the prior-fitted network (PFN) framework to address this challenge from a different perspective. PFNs are trained on large collections of synthetic tasks generated from a flexible prior, allowing them to learn how to perform inference across a wide range of data-generating mechanisms. This shifts the focus from designing a single clustering algorithm to learning a general inference procedure that can adapt to new datasets. However, directly applying PFNs to clustering is nontrivial. Unlike standard supervised tasks, clustering provides no explicit labels during training, and cluster identities are only identifiable up to permutation. Moreover, the output space itself is variable, since the number of clusters changes across datasets. This makes it difficult to directly define a supervised learning objective or a fixed prediction space for a neural network.</p>
+<p>In TabClustPFN <a href="#ref7">[7]</a>, our key idea is to reformulate clustering as a joint structured prediction problem, where the model must infer both the latent number of clusters and the corresponding cluster memberships simultaneously. Instead of treating the number of clusters as a separate preprocessing or model selection step, we embed it directly into the prediction target. We achieve this by constructing carefully designed prior datasets in which both the number of clusters and the cluster structures vary, enabling the PFN to learn a mapping from raw data to latent partition structure in a fully amortized manner. In this framework, the model learns to implicitly compare and reason over different clustering configurations, rather than relying on external selection criteria.</p>
+<p>This leads to a unified inference procedure: given a new dataset, the trained PFN outputs both an estimate of the number of clusters and the corresponding cluster assignments in a single forward pass, without iterative optimization or repeated model fitting. The resulting approach is fast, adaptive, and robust across a wide range of clustering regimes, and it reframes clustering from a problem of algorithm design into a problem of learning how to infer structure directly from data.</p>
+<p><strong>Key paper:</strong> Zhao, T., Wang, G., Tan, Y. S., and Zhang, Q. (2025). TabClustPFN: A Prior-Fitted Network for Tabular Data Clustering.
+<em>arXiv preprint</em>. <a href="https://arxiv.org/pdf/2601.21656">Paper link</a></p>
+<hr>
+<h2 id="references">References<a hidden class="anchor" aria-hidden="true" href="#references">#</a></h2>
+<ol style="font-size: 0.85em;">
+<li id="ref1">Bommasani, R. et al. (2021). On the opportunities and risks of foundation models. <em>arXiv:2108.07258</em>.</li>
+<li id="ref2">Hollmann, N., Müller, S., Eggensperger, K., and Hutter, F. (2022). TabPFN: a transformer that solves small tabular classification problems in a second. <em>NeurIPS 2022 First Table Representation Workshop</em>.</li>
+<li id="ref3">Nagler, T. (2023). Statistical foundations of prior-data fitted networks. <em>International Conference on Machine Learning (ICML 2023)</em>, pp. 25660–25676. PMLR.</li>
+<li id="ref4">Vetter, J., Gloeckler, M., Gedon, D., and Macke, J. H. (2025). Effortless, Simulation-Efficient Bayesian Inference using Tabular Foundation Models. <em>arXiv:2504.17660</em>.</li>
+<li id="ref5">Müller, S., Reuter, A., Hollmann, N., Rügamer, D., and Hutter, F. (2025). Position: The Future of Bayesian Prediction Is Prior-Fitted. <em>arXiv:2505.23947</em>.</li>
+<li id="ref6">Zhang, Q., Tan, Y. S., Tian, Q., and Li, P. (2025). TabPFN: One Model to Rule Them All? <em>arXiv:2505.20003</em> (major revision at JASA). </li>
+<li id="ref7">Dwivedi, R., Ho, N., Khamaru, K., Wainwright, M. J., Jordan, M. I., and Yu, B. (2019). Challenges with EM in application to weakly identifiable mixture models. <em>arXiv:1902.00194</em>.</li>
+<li id="ref8">Harbrecht, H., Jakeman, J. D., and Zaspel, P. (2021). Cholesky-based experimental design for Gaussian process and kernel-based emulation and calibration. <em>Communications in Computational Physics</em>, 29(SAND-2020-12052J). Sandia National Lab.</li>
+</ol>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://sarahqiong.github.io/">Qiong Zhang | 张琼</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
