@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Research: Tabular Foundation Models — Qiong Zhang | 张琼</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>Research: Tabular Foundation Models | Qiong Zhang 张琼</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Research: Tabular Foundation Models" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Assistant Professor, Institute of Statistics and Big Data, Renmin University of China" />
+<meta name="twitter:description" property="og:description" content="Assistant Professor, Institute of Statistics and Big Data, Renmin University of China" />
+<link rel="canonical" href="https://sarahqiong.github.io/research/tabular-models/" />
+<meta property="og:url" content="https://sarahqiong.github.io/research/tabular-models/" />
+<meta property="og:site_name" content="Qiong Zhang 张琼" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Research: Tabular Foundation Models" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Assistant Professor, Institute of Statistics and Big Data, Renmin University of China","headline":"Research: Tabular Foundation Models","url":"https://sarahqiong.github.io/research/tabular-models/"}</script>
+<!-- End Jekyll SEO tag -->
+
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="site-name" href="/">Qiong Zhang | 张琼</a>
+    <nav class="site-nav">
+      
+        <a href="/"
+           >
+          Home
+        </a>
+      
+        <a href="/about/"
+           >
+          About
+        </a>
+      
+        <a href="/research/"
+           >
+          Research
+        </a>
+      
+        <a href="/publications/"
+           >
+          Publications
+        </a>
+      
+        <a href="/students/"
+           >
+          Students
+        </a>
+      
+        <a href="/teaching/"
+           >
+          Teaching
+        </a>
+      
+      
+        <a href="/assets/cv.pdf" class="cv-link">CV</a>
+      
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">☀️</button>
+    </nav>
+  </div>
+</header>
+
+<script>
+(function() {
+  var stored = localStorage.getItem('theme');
+  var html = document.documentElement;
+  if (stored === 'dark') {
+    html.setAttribute('data-theme', 'dark');
+  } else if (stored === 'light') {
+    html.setAttribute('data-theme', 'light');
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var btn = document.getElementById('theme-toggle');
+    function updateIcon() {
+      var theme = html.getAttribute('data-theme');
+      var isDark = theme === 'dark' || (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      btn.textContent = isDark ? '☀️' : '🌙';
+    }
+    updateIcon();
+    btn.addEventListener('click', function() {
+      var theme = html.getAttribute('data-theme');
+      var isDark = theme === 'dark' || (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      var next = isDark ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      updateIcon();
+    });
+  });
+})();
+</script>
+
+<main class="container page-content">
+  <p><a href="/research/">← Back to Research</a></p>
+
+<h1 id="tabular-foundation-models-and-in-context-learning">Tabular Foundation Models and In-Context Learning</h1>
+
+<p>Foundation models — large models pretrained on broad data and adaptable to diverse downstream tasks — have transformed NLP and computer vision.
+With the emergence of <strong>tabular foundation models</strong>, this trend is beginning to reshape tabular data analysis, traditionally dominated by classical statistics.</p>
+
+<p>A leading example is <strong>TabPFN v2</strong>: a transformer pretrained entirely on synthetic data, claimed to outperform all previous methods for regression and classification on datasets up to 10,000 samples, while also supporting data generation, density estimation, and fine-tuning.</p>
+
+<hr />
+
+<h2 id="what-is-in-context-learning">What is in-context learning?</h2>
+
+<p>In-context learning (ICL) can be reframed statistically as <strong>meta-learning</strong>: instead of fitting a separate model per dataset, one pretrains a model to learn a mapping from datasets to quantities of interest.
+Given a new dataset, the model applies this mapping immediately — with no retraining required.</p>
+
+<p>TabPFN implements ICL as <strong>amortized Bayesian inference</strong>:</p>
+<ol>
+  <li>A prior is placed on joint distributions over covariate–label pairs.</li>
+  <li>A dataset is assumed drawn i.i.d. from a fixed joint distribution.</li>
+  <li>For a new test point <em>x</em>, the model approximates the <strong>posterior predictive distribution</strong> by integrating over all plausible data-generating distributions consistent with the observed data.</li>
+</ol>
+
+<p>Because pretraining uses synthetic data generated from a prior, TabPFN is called a <strong>prior-fitted network (PFN)</strong>.</p>
+
+<hr />
+
+<h2 id="evaluating-tabpfn-beyond-supervised-prediction">Evaluating TabPFN beyond supervised prediction</h2>
+
+<p>In recent work, we evaluated TabPFN’s capabilities <strong>beyond supervised prediction</strong> and found it outperforms specialized methods in:</p>
+
+<ul>
+  <li>Semi-supervised parameter estimation</li>
+  <li>Prediction under covariate shift</li>
+  <li>Heterogeneous treatment effect estimation</li>
+</ul>
+
+<p>It even surpasses LASSO in sparse regression and breaks robustness–efficiency trade-offs in classification.
+These findings suggest the ICL/PFN paradigm has the potential to supersede existing approaches across a wide range of statistical tasks.</p>
+
+<p><strong>Key paper:</strong> Zhang, Q.<sup><em>&lt;/sup&gt;, Tan, Y. S.<sup>*</sup>, Tian, Q.<sup>*</sup>, and Li, P. (2025). TabPFN: One Model to Rule Them All? *Major revision at JASA</em>.
+[<a href="https://arxiv.org/abs/2505.20003">arXiv</a>]
+[<a href="https://github.com/qinglong-tian/tabpfn_study">Code</a>]</sup></p>
+
+<hr />
+
+<h2 id="pfn-for-clustering">PFN for clustering</h2>
+
+<p>Clustering becomes substantially more challenging when both the number of clusters and the cluster assignments are unknown.
+Most classical methods treat these two problems separately — fixing the number of clusters in advance, or selecting it through BIC, cross-validation, or heuristic elbow methods — but there is no universally reliable criterion.</p>
+
+<p>In <strong>TabClustPFN</strong>, we use the PFN framework to address this from a different angle.
+Our key idea: reformulate clustering as a <strong>joint structured prediction problem</strong>, where the model simultaneously infers both the number of clusters and the cluster memberships.
+Rather than a separate preprocessing step, the number of clusters is embedded directly into the prediction target.</p>
+
+<p>We construct prior datasets where both the number of clusters and cluster structures vary, enabling the PFN to learn a mapping from raw data to latent partition structure in a fully amortized manner.
+The result: a unified inference procedure that outputs both the number of clusters and assignments in a <strong>single forward pass</strong>, without iterative optimization or repeated model fitting.</p>
+
+<p><strong>Key paper:</strong> Zhao, T., Wang, G., Tan, Y. S., and Zhang, Q. (2025). TabClustPFN: A Prior-Fitted Network for Tabular Data Clustering. <em>Preprint</em>.
+[<a href="https://arxiv.org/abs/2601.21656">arXiv</a>]
+[<a href="https://github.com/Tianqi-Zhao/TabClustPFN">Code</a>]</p>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>Qiong Zhang | 张琼 &middot; Assistant Professor, Institute of Statistics and Big Data, Renmin University of China</p>
+  </div>
+</footer>
+
+</body>
+</html>

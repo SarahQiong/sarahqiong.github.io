@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publications — Qiong Zhang | 张琼</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>Publications | Qiong Zhang 张琼</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Publications" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Assistant Professor, Institute of Statistics and Big Data, Renmin University of China" />
+<meta name="twitter:description" property="og:description" content="Assistant Professor, Institute of Statistics and Big Data, Renmin University of China" />
+<link rel="canonical" href="https://sarahqiong.github.io/publications/" />
+<meta property="og:url" content="https://sarahqiong.github.io/publications/" />
+<meta property="og:site_name" content="Qiong Zhang 张琼" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Publications" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Assistant Professor, Institute of Statistics and Big Data, Renmin University of China","headline":"Publications","url":"https://sarahqiong.github.io/publications/"}</script>
+<!-- End Jekyll SEO tag -->
+
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="site-name" href="/">Qiong Zhang | 张琼</a>
+    <nav class="site-nav">
+      
+        <a href="/"
+           >
+          Home
+        </a>
+      
+        <a href="/about/"
+           >
+          About
+        </a>
+      
+        <a href="/research/"
+           >
+          Research
+        </a>
+      
+        <a href="/publications/"
+           class="active">
+          Publications
+        </a>
+      
+        <a href="/students/"
+           >
+          Students
+        </a>
+      
+        <a href="/teaching/"
+           >
+          Teaching
+        </a>
+      
+      
+        <a href="/assets/cv.pdf" class="cv-link">CV</a>
+      
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">☀️</button>
+    </nav>
+  </div>
+</header>
+
+<script>
+(function() {
+  var stored = localStorage.getItem('theme');
+  var html = document.documentElement;
+  if (stored === 'dark') {
+    html.setAttribute('data-theme', 'dark');
+  } else if (stored === 'light') {
+    html.setAttribute('data-theme', 'light');
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var btn = document.getElementById('theme-toggle');
+    function updateIcon() {
+      var theme = html.getAttribute('data-theme');
+      var isDark = theme === 'dark' || (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      btn.textContent = isDark ? '☀️' : '🌙';
+    }
+    updateIcon();
+    btn.addEventListener('click', function() {
+      var theme = html.getAttribute('data-theme');
+      var isDark = theme === 'dark' || (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      var next = isDark ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      updateIcon();
+    });
+  });
+})();
+</script>
+
+<main class="container page-content">
+  <h1 id="publications">Publications</h1>
+
+<p class="pub-footnote">
+  <sup>*</sup> Equal contribution or alphabetical ordering &nbsp;|&nbsp;
+  <sup>🎓</sup> Student supervised &nbsp;|&nbsp;
+  <sup>📧</sup> Corresponding author
+</p>
+
+<div class="topic-filters">
+  <span class="topic-filter-label">Filter by topic:</span>
+  <button class="topic-btn active" data-topic="all">All</button>
+  <button class="topic-btn" data-topic="mixture-models">Mixture Models</button>
+  <button class="topic-btn" data-topic="federated-learning">Federated Learning</button>
+  <button class="topic-btn" data-topic="empirical-likelihood">Empirical Likelihood</button>
+  <button class="topic-btn" data-topic="tabular-models">Tabular Models</button>
+  <button class="topic-btn" data-topic="deep-learning">Deep Learning</button>
+  <button class="topic-btn" data-topic="computer-vision">Computer Vision</button>
+</div>
+
+<h2 class="section-heading">Journal Publications</h2>
+<div class="pub-section">
+<ul class="pub-list">
+
+<li class="pub-item" data-topics="federated-learning">
+  <span class="pub-num">1</span>
+  <div class="pub-body">
+    <div class="pub-title">
+      <a href="https://ieeexplore.ieee.org/document/11493577">Forgettable federated linear learning with certified data removal</a>
+      
+    </div>
+    <div class="pub-authors">Ruinan Jin<sup>🎓</sup>, Minghui Chen<sup>🎓</sup>, <strong>Qiong Zhang</strong><sup>📧</sup>, Xiaoxiao Li</div>
+    <div class="pub-venue"><em>IEEE Transactions on Neural Networks and Learning Systems (TNNLS)</em>, accepted, to appear</div>
+    
+    <div class="pub-links">
+      <a class="pub-link-badge" href="https://ieeexplore.ieee.org/document/11493577">Journal</a><a class="pub-link-badge" href="https://arxiv.org/abs/2306.02216">arXiv</a><a class="pub-link-badge" href="https://github.com/Nanboy-Ronan/2F2L-Federated-Unlearning">Code</a><details class="bibtex-details"><summary>BibTeX</summary><pre class="bibtex-pre">@article{jin2024forgettable,
+  title     = {Forgettable Federated Linear Learning with Certified Data Removal},
+  author    = {Jin, Ruinan and Chen, Minghui and Zhang, Qiong and Li, Xiaoxiao},
+  journal   = {IEEE Transactions on Neural Networks and Learning Systems},
+  year      = {2024},
+  publisher = {IEEE},
+  doi       = {10.1109/TNNLS.2025.3578621}
+}
+</pre></details>
+    </div>
+    
+  </div>
+</li>
+
+<li class="pub-item" data-topics="mixture-models|federated-learning">
+  <span class="pub-num">2</span>
+  <div class="pub-body">
+    <div class="pub-title">
+      <a href="https://academic.oup.com/jrsssb/advance-article-abstract/doi/10.1093/jrsssb/qkag065/8656099">Byzantine-tolerant distributed learning of finite mixture models</a>
+      
+    </div>
+    <div class="pub-authors"><strong>Qiong Zhang</strong><sup>*</sup>, Yan Shuo Tan<sup>*</sup>, Jiahua Chen</div>
+    <div class="pub-venue"><em>Journal of the Royal Statistical Society, Series B</em>, 2026</div>
+    
+    <div class="pub-links">
+      <a class="pub-link-badge" href="https://academic.oup.com/jrsssb/advance-article-abstract/doi/10.1093/jrsssb/qkag065/8656099">Journal</a><a class="pub-link-badge" href="https://arxiv.org/abs/2407.13980">arXiv</a><a class="pub-link-badge" href="https://github.com/SarahQiong/RobustSCGMM">Code</a><a class="pub-link-badge" href="/assets/files/slides/Byzantine.pdf">Slides</a><details class="bibtex-details"><summary>BibTeX</summary><pre class="bibtex-pre">@article{zhang2026byzantine,
+  author  = {Zhang, Qiong and Tan, Yan Shuo and Chen, Jiahua},
+  title   = {Byzantine-tolerant distributed learning of finite mixture models},
+  journal = {Journal of the Royal Statistical Society Series B: Statistical Methodology},
+  pages   = {qkag065},
+  year    = {2026},
+  month   = {04},
+  doi     = {10.1093/jrsssb/qkag065},
+  url     = {https://doi.org/10.1093/jrsssb/qkag065}
+}
+</pre></details>
+    </div>
+    
+  </div>
+</li>
+
+<li class="pub-item" data-topics="mixture-models">
+  <span class="pub-num">3</span>
+  <div class="pub-body">
+    <div class="pub-title">
+      <a href="https://ieeexplore.ieee.org/document/10275014">Gaussian mixture reduction with composite transportation divergence</a>
+      
+    </div>
+    <div class="pub-authors"><strong>Qiong Zhang</strong>, Archer Gong Zhang, Jiahua Chen</div>
+    <div class="pub-venue"><em>IEEE Transactions on Information Theory</em>, 2024</div>
+    
+    <div class="pub-links">
+      <a class="pub-link-badge" href="https://ieeexplore.ieee.org/document/10275014">Journal</a><a class="pub-link-badge" href="https://arxiv.org/abs/2002.08410">arXiv</a><a class="pub-link-badge" href="https://github.com/SarahQiong/CTDGMR">Code</a><a class="pub-link-badge" href="/assets/files/slides/GMR.pdf">Slides</a><details class="bibtex-details"><summary>BibTeX</summary><pre class="bibtex-pre">@article{zhang2024gaussian,
+  title   = {Gaussian Mixture Reduction With Composite Transportation Divergence},
+  author  = {Zhang, Qiong and Zhang, Archer Gong and Chen, Jiahua},
+  journal = {IEEE Transactions on Information Theory},
+  year    = {2024},
+  volume  = {70},
+  number  = {7},
+  pages   = {5191--5212},
+  doi     = {10.1109/TIT.2023.3323346}
+}
+</pre></details>
+    </div>
+    
+  </div>
+</li>
+
+<li class="pub-item" data-topics="mixture-models|federated-learning">
+  <span class="pub-num">4</span>
+  <div class="pub-body">
+    <div class="pub-title">
+      <a href="https://jmlr.org/papers/volume23/21-0093/21-0093.pdf">Distributed learning of finite mixture models</a>
+      
+    </div>
+    <div class="pub-authors"><strong>Qiong Zhang</strong>, Jiahua Chen</div>
+    <div class="pub-venue"><em>Journal of Machine Learning Research</em>, 2022</div>
+    
+    <div class="pub-links">
+      <a class="pub-link-badge" href="https://jmlr.org/papers/volume23/21-0093/21-0093.pdf">Journal</a><a class="pub-link-badge" href="https://arxiv.org/abs/2010.10412">arXiv</a><a class="pub-link-badge" href="https://github.com/SarahQiong/SCGMM">Code</a><a class="pub-link-badge" href="https://drive.google.com/file/d/1hEelP7Ac84IhRx8rQe0wSum4AKFd4QnY/view?usp=sharing">Talk</a><a class="pub-link-badge" href="/assets/files/poster/NeurIPS_2022.pdf">Poster</a><details class="bibtex-details"><summary>BibTeX</summary><pre class="bibtex-pre">@article{zhang2022distributed,
+  title   = {Distributed Learning of Finite Gaussian Mixtures},
+  author  = {Zhang, Qiong and Chen, Jiahua},
+  journal = {Journal of Machine Learning Research},
+  year    = {2022},
+  volume  = {23},
+  number  = {1},
+  pages   = {4265--4304},
+  url     = {http://jmlr.org/papers/v23/21-0093.html}
+}
+</pre></details>
+    </div>
+    
+  </div>
+</li>
+
+<li class="pub-item" data-topics="mixture-models">
+  <span class="pub-num">5</span>
+  <div class="pub-body">
+    <div class="pub-title">
+      <a href="https://link.springer.com/chapter/10.1007/978-3-031-08329-7_4">Minimum Wasserstein distance estimator under finite location-scale mixtures</a>
+      
+    </div>
+    <div class="pub-authors"><strong>Qiong Zhang</strong>, Jiahua Chen</div>
+    <div class="pub-venue"><em>Advances and Innovations in Statistics and Data Science</em>, Springer, 2022</div>
+    
+    <div class="pub-links">
+      <a class="pub-link-badge" href="https://link.springer.com/chapter/10.1007/978-3-031-08329-7_4">Chapter</a><a class="pub-link-badge" href="https://arxiv.org/abs/2107.01323">arXiv</a><details class="bibtex-details"><summary>BibTeX</summary><pre class="bibtex-pre">@incollection{zhang2022minimum,
+  title     = {Minimum Wasserstein distance estimator under finite location-scale mixtures},
+  author    = {Zhang, Qiong and Chen, Jiahua},
+  booktitle = {Advances and Innovations in Statistics and Data Science},
+  pages     = {69--98},
+  year      = {2022},
+  publisher = {Springer}
+}
+</pre></details>
+    </div>
+    
+  </div>
+</li>
+
+<li class="pub-item" data-topics="empirical-likelihood">
+  <span class="pub-num">6</span>
+  <div class="pub-body">
+    <div class="pub-title">
+      <a href="https://presidencia.gva.es/documents/166658342/168130165/Ejemplar+45-01/fb04aeb3-9ea6-441f-a15c-bc65e857d689#page=87">Small area quantile estimation via spline regression and empirical likelihood</a>
+      
+    </div>
+    <div class="pub-authors">Zhanshou Chen, Jiahua Chen, <strong>Qiong Zhang</strong></div>
+    <div class="pub-venue"><em>Survey Methodology</em>, 2019</div>
+    
+    <div class="pub-links">
+      <a class="pub-link-badge" href="https://presidencia.gva.es/documents/166658342/168130165/Ejemplar+45-01/fb04aeb3-9ea6-441f-a15c-bc65e857d689#page=87">Journal</a><details class="bibtex-details"><summary>BibTeX</summary><pre class="bibtex-pre">@article{chen2019small,
+  title   = {Small area quantile estimation via spline regression and empirical likelihood},
+  author  = {Chen, Zhanshou and Chen, Jiahua and Zhang, Qiong},
+  journal = {Survey Methodology},
+  volume  = {45},
+  number  = {1},
+  pages   = {81--99},
+  year    = {2019}
+}
+</pre></details>
+    </div>
+    
+  </div>
+</li>
+
+<li class="pub-item" data-topics="applications">
+  <span class="pub-num">7</span>
+  <div class="pub-body">
+    <div class="pub-title">
+      <a href="https://www.sciencedirect.com/science/article/pii/S1529943018311045">Highlighting discrepancies in walking prediction accuracy for patients with traumatic spinal cord injury</a>
+      
+    </div>
+    <div class="pub-authors">Philippe Phan, Brandon Budhram, <strong>Qiong Zhang</strong>, Carly S Rivers, Vanessa K Noonan, et al.</div>
+    <div class="pub-venue"><em>The Spine Journal</em>, 2019</div>
+    
+    <div class="pub-links">
+      <a class="pub-link-badge" href="https://www.sciencedirect.com/science/article/pii/S1529943018311045">Journal</a><details class="bibtex-details"><summary>BibTeX</summary><pre class="bibtex-pre">@article{phan2019highlighting,
+  title     = {Highlighting discrepancies in walking prediction accuracy for patients with traumatic spinal cord injury},
+  author    = {Phan, Philippe and Budhram, Brandon and Zhang, Qiong and Rivers, Carly S and Noonan, Vanessa K and Plashkes, Tova and Wai, Eugene K and Paquet, J{\'e}r{\^o}me and Roffey, Darren M and Tsai, Eve and others},
+  journal   = {The Spine Journal},
+  volume    = {19},
+  number    = {4},
+  pages     = {703--710},
+  year      = {2019},
+  publisher = {Elsevier}
+}
+</pre></details>
+    </div>
+    
+  </div>
+</li>
+
+</ul>
+</div>
+
+<h2 class="section-heading">Conference Publications</h2>
+<div class="pub-section">
+<ul class="pub-list">
+
+<li class="pub-item" data-topics="federated-learning|empirical-likelihood">
+  <span class="pub-num">1</span>
+  <div class="pub-body">
+    <div class="pub-title">
+      <a href="https://openreview.net/forum?id=RZT1ixYGk1">Beyond aggregation: Guiding clients in heterogeneous federated learning</a>
+      
+    </div>
+    <div class="pub-authors">Zijian Wang<sup>🎓</sup>, Xiaofei Zhang, Xin Zhang, Yukun Liu, <strong>Qiong Zhang</strong><sup>📧</sup></div>
+    <div class="pub-venue"><em>International Conference on Learning Representations (ICLR)</em>, 2026</div>
+    
+    <div class="pub-links">
+      <a class="pub-link-badge" href="https://openreview.net/forum?id=RZT1ixYGk1">Paper</a><a class="pub-link-badge" href="https://arxiv.org/abs/2509.23049">arXiv</a><a class="pub-link-badge" href="https://github.com/zijianwang0510/FedDRM.git">Code</a><a class="pub-link-badge" href="https://iclr.cc/media/PosterPDFs/ICLR%202026/10009476.png?t=1773649698.64835">Poster</a><details class="bibtex-details"><summary>BibTeX</summary><pre class="bibtex-pre">@inproceedings{wang2026beyond,
+  title     = {Beyond Aggregation: Guiding Clients in Heterogeneous Federated Learning},
+  author    = {Wang, Zijian and Zhang, Xiaofei and Zhang, Xin and Liu, Yukun and Zhang, Qiong},
+  booktitle = {The Fourteenth International Conference on Learning Representations},
+  year      = {2026},
+  url       = {https://openreview.net/forum?id=RZT1ixYGk1}
+}
+</pre></details>
+    </div>
+    
+  </div>
+</li>
+
+<li class="pub-item" data-topics="mixture-models">
+  <span class="pub-num">2</span>
+  <div class="pub-body">
+    <div class="pub-title">
+      <a href="https://openreview.net/forum?id=j1QkrVjNVF">Gaussian Herding across Pens: An optimal transport perspective on global Gaussian reduction for 3DGS</a>
+      <span class="pub-awards">Spotlight</span>
+    </div>
+    <div class="pub-authors">Tao Wang<sup>*🎓</sup>, Mengyu Li<sup>*🎓</sup>, Geduo Zeng<sup>🎓</sup>, Cheng Meng<sup>📧</sup>, <strong>Qiong Zhang</strong><sup>📧</sup></div>
+    <div class="pub-venue"><em>Neural Information Processing Systems (NeurIPS)</em>, 2025</div>
+    
+    <div class="pub-links">
+      <a class="pub-link-badge" href="https://openreview.net/forum?id=j1QkrVjNVF">Paper</a><a class="pub-link-badge" href="https://arxiv.org/abs/2506.09534">arXiv</a><a class="pub-link-badge" href="https://github.com/DrunkenPoet/GHAP">Code</a><a class="pub-link-badge" href="https://neurips.cc/virtual/2025/poster/116503">Poster</a><details class="bibtex-details"><summary>BibTeX</summary><pre class="bibtex-pre">@inproceedings{wang2025gaussian,
+  title     = {Gaussian Herding across Pens: An Optimal Transport Perspective on Global Gaussian Reduction for 3DGS},
+  author    = {Wang, Tao and Li, Mengyu and Zeng, Geduo and Meng, Cheng and Zhang, Qiong},
+  booktitle = {The Thirty-ninth Annual Conference on Neural Information Processing Systems},
+  year      = {2025}
+}
+</pre></details>
+    </div>
+    
+  </div>
+</li>
+
+<li class="pub-item" data-topics="deep-learning">
+  <span class="pub-num">3</span>
+  <div class="pub-body">
+    <div class="pub-title">
+      <a href="https://openreview.net/pdf?id=BkftcwIVmR">S4M: S4 for multivariate time series forecasting with missing values</a>
+      
+    </div>
+    <div class="pub-authors">Jing Peng<sup>🎓</sup>, Meiqi Yang, <strong>Qiong Zhang</strong><sup>📧</sup>, Xiaoxiao Li</div>
+    <div class="pub-venue"><em>International Conference on Learning Representations (ICLR)</em>, 2025</div>
+    
+    <div class="pub-links">
+      <a class="pub-link-badge" href="https://openreview.net/pdf?id=BkftcwIVmR">Paper</a><a class="pub-link-badge" href="https://arxiv.org/abs/2503.00900">arXiv</a><a class="pub-link-badge" href="https://github.com/WINTERWEEL/S4M">Code</a><a class="pub-link-badge" href="https://iclr.cc/virtual/2025/poster/30554">Poster</a><details class="bibtex-details"><summary>BibTeX</summary><pre class="bibtex-pre">@inproceedings{peng2025s4m,
+  title     = {S4M: S4 for Multivariate Time Series Forecasting with Missing Values},
+  author    = {Peng, Jing and Yang, Meiqi and Zhang, Qiong and Li, Xiaoxiao},
+  booktitle = {The Thirteenth International Conference on Learning Representations},
+  year      = {2025},
+  url       = {https://openreview.net/forum?id=BkftcwIVmR}
+}
+</pre></details>
+    </div>
+    
+  </div>
+</li>
+
+<li class="pub-item" data-topics="mixture-models|federated-learning">
+  <span class="pub-num">4</span>
+  <div class="pub-body">
+    <div class="pub-title">
+      <a href="https://avestia.com/ICSTA2021_Proceedings/files/paper/ICSTA_135.pdf">Robustness of Gaussian mixture reduction for split-and-conquer learning of finite Gaussian mixtures</a>
+      
+    </div>
+    <div class="pub-authors"><strong>Qiong Zhang</strong>, Jiahua Chen</div>
+    <div class="pub-venue"><em>International Conference on Statistics: Theory and Applications (ICSTA)</em>, 2021</div>
+    
+    <div class="pub-links">
+      <a class="pub-link-badge" href="https://avestia.com/ICSTA2021_Proceedings/files/paper/ICSTA_135.pdf">Proceedings</a><a class="pub-link-badge" href="https://drive.google.com/file/d/19nYggKC5ksYIdRyiZkf9SBf5UtVUFWBb/view?usp=sharing">Talk</a><details class="bibtex-details"><summary>BibTeX</summary><pre class="bibtex-pre">@inproceedings{zhang2021robustness,
+  title     = {Robustness of Gaussian Mixture Reduction for Split-and-Conquer Learning of Finite Gaussian Mixtures},
+  author    = {Zhang, Qiong and Chen, Jiahua},
+  booktitle = {Proceedings of the 3rd International Conference on Statistics: Theory and Applications (ICSTA'21)},
+  year      = {2021}
+}
+</pre></details>
+    </div>
+    
+  </div>
+</li>
+
+<li class="pub-item" data-topics="deep-learning|computer-vision">
+  <span class="pub-num">5</span>
+  <div class="pub-body">
+    <div class="pub-title">
+      <a href="https://openaccess.thecvf.com/content/ICCV2021/papers/Liang_Boosting_the_Generalization_Capability_in_Cross-Domain_Few-Shot_Learning_via_Noise-Enhanced_ICCV_2021_paper.pdf">Boosting the generalization capability in cross-domain few-shot learning via noise-enhanced supervised autoencoder</a>
+      
+    </div>
+    <div class="pub-authors">Hanwen Liang<sup>*</sup>, <strong>Qiong Zhang</strong><sup>*</sup>, Peng Dai, Juwei Lu</div>
+    <div class="pub-venue"><em>International Conference on Computer Vision (ICCV)</em>, 2021</div>
+    
+    <div class="pub-links">
+      <a class="pub-link-badge" href="https://openaccess.thecvf.com/content/ICCV2021/papers/Liang_Boosting_the_Generalization_Capability_in_Cross-Domain_Few-Shot_Learning_via_Noise-Enhanced_ICCV_2021_paper.pdf">Proceedings</a><a class="pub-link-badge" href="https://arxiv.org/abs/2108.05028">arXiv</a><a class="pub-link-badge" href="/assets/files/poster/ICCV_2021.pdf">Poster</a><details class="bibtex-details"><summary>BibTeX</summary><pre class="bibtex-pre">@inproceedings{liang2021boosting,
+  title     = {Boosting the Generalization Capability in Cross-Domain Few-shot Learning via Noise-enhanced Supervised Autoencoder},
+  author    = {Liang, Hanwen and Zhang, Qiong and Dai, Peng and Lu, Juwei},
+  booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision},
+  pages     = {9424--9434},
+  year      = {2021}
+}
+</pre></details>
+    </div>
+    
+  </div>
+</li>
+
+<li class="pub-item" data-topics="deep-learning|computer-vision">
+  <span class="pub-num">6</span>
+  <div class="pub-body">
+    <div class="pub-title">
+      <a href="https://link.springer.com/chapter/10.1007/978-3-030-93046-2_56">Classification beats regression: Counting of cells from greyscale microscopic images based on annotation-free training samples</a>
+      
+    </div>
+    <div class="pub-authors">Xin Ding<sup>*</sup>, <strong>Qiong Zhang</strong><sup>*</sup>, William J Welch</div>
+    <div class="pub-venue"><em>CAAI International Conference on Artificial Intelligence</em>, 2021</div>
+    
+    <div class="pub-links">
+      <a class="pub-link-badge" href="https://link.springer.com/chapter/10.1007/978-3-030-93046-2_56">Proceedings</a><a class="pub-link-badge" href="https://arxiv.org/abs/2010.14782">arXiv</a><a class="pub-link-badge" href="https://github.com/UBCDingXin/CellCount_TinyBBBC005">Code</a><a class="pub-link-badge" href="/assets/files/poster/CICAI_2021.pdf">Poster</a><details class="bibtex-details"><summary>BibTeX</summary><pre class="bibtex-pre">@inproceedings{ding2021classification,
+  title        = {Classification Beats Regression: Counting of Cells from Greyscale Microscopic Images Based on Annotation-Free Training Samples},
+  author       = {Ding, Xin and Zhang, Qiong and Welch, William J},
+  booktitle    = {CAAI International Conference on Artificial Intelligence},
+  pages        = {662--673},
+  year         = {2021},
+  organization = {Springer}
+}
+</pre></details>
+    </div>
+    
+  </div>
+</li>
+
+<li class="pub-item" data-topics="deep-learning|computer-vision">
+  <span class="pub-num">7</span>
+  <div class="pub-body">
+    <div class="pub-title">
+      <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8354132">Generating handwritten Chinese characters using CycleGAN</a>
+      
+    </div>
+    <div class="pub-authors">Bo Chang<sup>*</sup>, <strong>Qiong Zhang</strong><sup>*</sup>, Shenyi Pan, Lili Meng</div>
+    <div class="pub-venue"><em>IEEE Winter Conference on Applications of Computer Vision (WACV)</em>, 2018</div>
+    
+    <div class="pub-links">
+      <a class="pub-link-badge" href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8354132">Proceedings</a><a class="pub-link-badge" href="https://arxiv.org/abs/1801.08624">arXiv</a><a class="pub-link-badge" href="https://github.com/changebo/HCCG-CycleGAN">Code</a><a class="pub-link-badge" href="https://www.youtube.com/watch?v=WksQoQp3ZoE">Talk</a><a class="pub-link-badge" href="/assets/files/poster/WACV_2018.pdf">Poster</a><details class="bibtex-details"><summary>BibTeX</summary><pre class="bibtex-pre">@inproceedings{chang2018generating,
+  title        = {Generating Handwritten Chinese Characters Using CycleGAN},
+  author       = {Chang, Bo and Zhang, Qiong and Pan, Shenyi and Meng, Lili},
+  booktitle    = {2018 IEEE Winter Conference on Applications of Computer Vision (WACV)},
+  pages        = {199--207},
+  year         = {2018},
+  organization = {IEEE}
+}
+</pre></details>
+    </div>
+    
+  </div>
+</li>
+
+</ul>
+</div>
+
+<h2 class="section-heading">Preprints</h2>
+<div class="pub-section">
+<ul class="pub-list">
+
+<li class="pub-item" data-topics="empirical-likelihood">
+  <span class="pub-num">1</span>
+  <div class="pub-body">
+    <div class="pub-title">
+      <a href="https://arxiv.org/abs/2603.21623">Neyman-Pearson multiclass classification under label noise</a>
+    </div>
+    <div class="pub-authors"><strong>Qiong Zhang</strong>, Qinglong Tian, Pengfei Li</div>
+    <div class="pub-venue">Preprint, 2026</div>
+    
+    <div class="pub-links">
+      <a class="pub-link-badge" href="https://arxiv.org/abs/2603.21623">arXiv</a>
+    </div>
+    
+  </div>
+</li>
+
+<li class="pub-item" data-topics="tabular-models">
+  <span class="pub-num">2</span>
+  <div class="pub-body">
+    <div class="pub-title">
+      <a href="https://arxiv.org/abs/2605.10137">PFN-TS: Thompson Sampling for contextual bandits via prior-data fitted networks</a>
+    </div>
+    <div class="pub-authors">Yan Shuo Tan, Kenyon Ng, Ruizhe Deng, Sumetha Loganathan, <strong>Qiong Zhang</strong>, Bibhas Chakraborty</div>
+    <div class="pub-venue">Preprint, 2026</div>
+    
+    <div class="pub-links">
+      <a class="pub-link-badge" href="https://arxiv.org/abs/2605.10137">arXiv</a>
+    </div>
+    
+  </div>
+</li>
+
+<li class="pub-item" data-topics="tabular-models">
+  <span class="pub-num">3</span>
+  <div class="pub-body">
+    <div class="pub-title">
+      <a href="https://arxiv.org/abs/2601.21656">TabClustPFN: A prior-fitted network for tabular data clustering</a>
+    </div>
+    <div class="pub-authors">Tianqi Zhao<sup>🎓</sup>, Guanyang Wang, Yan Shuo Tan, <strong>Qiong Zhang</strong><sup>📧</sup></div>
+    <div class="pub-venue">Preprint, 2026</div>
+    
+    <div class="pub-links">
+      <a class="pub-link-badge" href="https://arxiv.org/abs/2601.21656">arXiv</a><a class="pub-link-badge" href="https://github.com/Tianqi-Zhao/TabClustPFN">Code</a>
+    </div>
+    
+  </div>
+</li>
+
+<li class="pub-item" data-topics="mixture-models">
+  <span class="pub-num">4</span>
+  <div class="pub-body">
+    <div class="pub-title">
+      <a href="https://arxiv.org/abs/2601.07282">Minimum Wasserstein distance estimator under covariate shift: closed form and super-efficiency</a>
+    </div>
+    <div class="pub-authors">Junjun Lang, <strong>Qiong Zhang</strong><sup>📧</sup>, Yukun Liu<sup>📧</sup></div>
+    <div class="pub-venue">Major revision at <em>JASA</em></div>
+    
+    <div class="pub-links">
+      <a class="pub-link-badge" href="https://arxiv.org/abs/2601.07282">arXiv</a>
+    </div>
+    
+  </div>
+</li>
+
+<li class="pub-item" data-topics="deep-learning|computer-vision">
+  <span class="pub-num">5</span>
+  <div class="pub-body">
+    <div class="pub-title">
+      <a href="https://arxiv.org/abs/2506.18140">Reference image-guided comparative vision-language models for medical diagnosis</a>
+    </div>
+    <div class="pub-authors">Ruinan Jin, Gexin Huang, Xinwei Shen, <strong>Qiong Zhang</strong>, Yan Shuo Tan, Xiaoxiao Li</div>
+    <div class="pub-venue">Preprint, 2025</div>
+    
+    <div class="pub-links">
+      <a class="pub-link-badge" href="https://arxiv.org/abs/2506.18140">arXiv</a>
+    </div>
+    
+  </div>
+</li>
+
+<li class="pub-item" data-topics="tabular-models">
+  <span class="pub-num">6</span>
+  <div class="pub-body">
+    <div class="pub-title">
+      <a href="https://arxiv.org/abs/2505.20003">TabPFN: One model to rule them all?</a>
+    </div>
+    <div class="pub-authors"><strong>Qiong Zhang</strong><sup>*</sup>, Yan Shuo Tan<sup>*</sup>, Qinglong Tian<sup>*</sup>, Pengfei Li</div>
+    <div class="pub-venue">Major revision at <em>JASA</em></div>
+    
+    <div class="pub-links">
+      <a class="pub-link-badge" href="https://arxiv.org/abs/2505.20003">arXiv</a><a class="pub-link-badge" href="https://github.com/qinglong-tian/tabpfn_study">Code</a>
+    </div>
+    
+  </div>
+</li>
+
+<li class="pub-item" data-topics="federated-learning">
+  <span class="pub-num">7</span>
+  <div class="pub-body">
+    <div class="pub-title">
+      <a href="https://arxiv.org/abs/2210.02042">FedMT: Federated learning with mixed-type labels</a>
+    </div>
+    <div class="pub-authors"><strong>Qiong Zhang</strong>, Jing Peng<sup>*</sup>, Xin Zhang<sup>*</sup>, Aline Talhouk, Gang Niu, Xiaoxiao Li</div>
+    <div class="pub-venue">Preprint, 2022</div>
+    
+    <div class="pub-links">
+      <a class="pub-link-badge" href="https://arxiv.org/abs/2210.02042">arXiv</a>
+    </div>
+    
+  </div>
+</li>
+
+</ul>
+</div>
+
+<script>
+(function () {
+  var buttons = document.querySelectorAll('.topic-btn');
+  var items   = document.querySelectorAll('.pub-item');
+
+  buttons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var topic = btn.getAttribute('data-topic');
+
+      buttons.forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+
+      items.forEach(function (item) {
+        if (topic === 'all') {
+          item.style.display = '';
+        } else {
+          var topics = item.getAttribute('data-topics').split('|');
+          item.style.display = topics.indexOf(topic) !== -1 ? '' : 'none';
+        }
+      });
+
+      document.querySelectorAll('.pub-section').forEach(function (section) {
+        var heading = section.previousElementSibling;
+        var visible = section.querySelectorAll('.pub-item:not([style*="none"])').length;
+        if (heading) heading.style.display = visible ? '' : 'none';
+        section.style.display = visible ? '' : 'none';
+      });
+    });
+  });
+})();
+</script>
+
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>Qiong Zhang | 张琼 &middot; Assistant Professor, Institute of Statistics and Big Data, Renmin University of China</p>
+  </div>
+</footer>
+
+</body>
+</html>
