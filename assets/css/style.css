@@ -138,7 +138,15 @@ h2.section-heading {
 }
 
 /* ── Publication list ───────────────────────────────────────────────────────  */
-.pub-section { margin-bottom: 2.5rem; }
+.pub-section {
+  max-height: 30rem;
+  overflow-y: auto;
+  margin: 0.5rem 0 2.5rem;
+  padding: 0 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-light);
+}
 .pub-list    { list-style: none; }
 
 .pub-item {
@@ -295,6 +303,16 @@ h2.section-heading {
   margin: 0.5rem 0 1rem;
   padding: 0;
 }
+.news-panel {
+  max-height: 19rem;
+  overflow-y: auto;
+  margin: 0.5rem 0 1rem;
+  padding: 0 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-light);
+}
+.news-panel .news-list { margin: 0; }
 .news-item {
   display: flex;
   align-items: baseline;

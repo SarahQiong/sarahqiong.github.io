@@ -11,8 +11,8 @@
 <meta name="generator" content="Jekyll v4.4.1" />
 <meta property="og:title" content="Research: Empirical Likelihood in Modern AI" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Assistant Professor, Institute of Statistics and Big Data, Renmin University of China" />
-<meta name="twitter:description" property="og:description" content="Assistant Professor, Institute of Statistics and Big Data, Renmin University of China" />
+<meta name="description" content="Assistant Professor, Division of Computing and Mathematical Sciences, MBZUAI" />
+<meta name="twitter:description" property="og:description" content="Assistant Professor, Division of Computing and Mathematical Sciences, MBZUAI" />
 <link rel="canonical" href="https://sarahqiong.github.io/research/empirical-likelihood/" />
 <meta property="og:url" content="https://sarahqiong.github.io/research/empirical-likelihood/" />
 <meta property="og:site_name" content="Qiong Zhang 张琼" />
@@ -20,7 +20,7 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Research: Empirical Likelihood in Modern AI" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","description":"Assistant Professor, Institute of Statistics and Big Data, Renmin University of China","headline":"Research: Empirical Likelihood in Modern AI","url":"https://sarahqiong.github.io/research/empirical-likelihood/"}</script>
+{"@context":"https://schema.org","@type":"WebPage","description":"Assistant Professor, Division of Computing and Mathematical Sciences, MBZUAI","headline":"Research: Empirical Likelihood in Modern AI","url":"https://sarahqiong.github.io/research/empirical-likelihood/"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
@@ -117,7 +117,7 @@ It was later reinterpreted as a way to integrate data across heterogeneous popul
 Existing FL methods focus on aggregating client updates into a single global model, which often underutilizes the rich heterogeneity across sites.
 Hospitals may specialize in different patient subgroups — that diversity should be <strong>leveraged rather than suppressed</strong>.</p>
 
-<p>We use EL to <strong>reimagine FL, shifting the paradigm from aggregation to guidance</strong>.
+<p>We use EL to <strong>reimagine FL, shifting the paradigm from aggregation to guidance</strong> (Wang, Zhang, et al., 2026).
 Focusing on multi-class classification, we formulate a density ratio model allowing constrained heterogeneity across classes and clients.
 The resulting loss decomposes naturally into two cross-entropy terms:</p>
 <ul>
@@ -134,6 +134,10 @@ The resulting loss decomposes naturally into two cross-entropy terms:</p>
   </p>
 </div>
 
+<p><strong>FedSPM</strong> (Wang, Li, et al., 2026) extends this framework to <strong>dual heterogeneity</strong> — differences not only between clients but also within each client’s own data, such as disease subtypes at a single hospital — by modeling each client as a semiparametric mixture of latent components fitted with a federated EM algorithm, which improves both routing and prediction.</p>
+
+<p>We also take this idea to the <strong>decentralized</strong> setting, where there is no central server to do the routing: clients instead learn to <strong>refer</strong> queries to one another, collaborating at inference time (Ma et al., 2026).</p>
+
 <p><strong>Key papers:</strong></p>
 
 <ul>
@@ -145,8 +149,11 @@ The resulting loss decomposes naturally into two cross-entropy terms:</p>
 [<a href="https://iclr.cc/media/PosterPDFs/ICLR%202026/10009476.png?t=1773649698.64835">Poster</a>]</p>
   </li>
   <li>
-    <p>Wang, Z., Li, P., Yang, G., and Zhang, Q. (2026). FedSPM: Routing-Enabled Federated Learning under Dual Heterogeneity via Semi-Parametric Mixture. <em>Preprint</em>.
+    <p>Wang, Z., Li, P., Yang, G., and Zhang, Q. (2026). FedSPM: Routing-Enabled Federated Learning under Dual Heterogeneity via Semiparametric Mixture. <em>Preprint</em>.
 [<a href="https://arxiv.org/abs/2607.04085">arXiv</a>]</p>
+  </li>
+  <li>
+    <p>Ma, Y., Wang, C., and Zhang, Q. (2026). Learning to Refer: Inference-Time Collaboration in Decentralized Federated Learning. <em>Preprint</em>.</p>
   </li>
 </ul>
 
@@ -173,14 +180,14 @@ Leveraging EL, we estimate the reference nonparametrically and recover tilting p
 Our work shows that the density ratio structure resolves this — under mild conditions, it uniquely recovers the key quantities needed for learning <em>without requiring knowledge of the noise mechanism</em>.
 To our knowledge, this identifiability result is new in this setting.</p>
 
-<p><strong>Key paper:</strong> Zhang, Q., Tian, Q., and Li, P. (2026). Neyman–Pearson Multiclass Classification under Label Noise. <em>Preprint</em>.
+<p><strong>Key paper:</strong> Zhang, Q., Tian, Q., and Li, P. (2026). Neyman–Pearson Multiclass Classification under Label Noise. <em>R&amp;R at JMLR</em>.
 [<a href="https://arxiv.org/abs/2603.21623">arXiv</a>]</p>
 
 </main>
 
 <footer class="site-footer">
   <div class="container">
-    <p>Qiong Zhang | 张琼 &middot; Assistant Professor, Institute of Statistics and Big Data, Renmin University of China</p>
+    <p>Qiong Zhang | 张琼 &middot; Assistant Professor, Division of Computing and Mathematical Sciences, MBZUAI</p>
   </div>
 </footer>
 

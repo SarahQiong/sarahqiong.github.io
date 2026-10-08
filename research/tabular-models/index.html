@@ -11,8 +11,8 @@
 <meta name="generator" content="Jekyll v4.4.1" />
 <meta property="og:title" content="Research: Tabular Foundation Models" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Assistant Professor, Institute of Statistics and Big Data, Renmin University of China" />
-<meta name="twitter:description" property="og:description" content="Assistant Professor, Institute of Statistics and Big Data, Renmin University of China" />
+<meta name="description" content="Assistant Professor, Division of Computing and Mathematical Sciences, MBZUAI" />
+<meta name="twitter:description" property="og:description" content="Assistant Professor, Division of Computing and Mathematical Sciences, MBZUAI" />
 <link rel="canonical" href="https://sarahqiong.github.io/research/tabular-models/" />
 <meta property="og:url" content="https://sarahqiong.github.io/research/tabular-models/" />
 <meta property="og:site_name" content="Qiong Zhang 张琼" />
@@ -20,7 +20,7 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Research: Tabular Foundation Models" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","description":"Assistant Professor, Institute of Statistics and Big Data, Renmin University of China","headline":"Research: Tabular Foundation Models","url":"https://sarahqiong.github.io/research/tabular-models/"}</script>
+{"@context":"https://schema.org","@type":"WebPage","description":"Assistant Professor, Division of Computing and Mathematical Sciences, MBZUAI","headline":"Research: Tabular Foundation Models","url":"https://sarahqiong.github.io/research/tabular-models/"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
@@ -140,9 +140,20 @@ Given a new dataset, the model applies this mapping immediately — with no retr
 <p>It even surpasses LASSO in sparse regression and breaks robustness–efficiency trade-offs in classification.
 These findings suggest the ICL/PFN paradigm has the potential to supersede existing approaches across a wide range of statistical tasks.</p>
 
-<p><strong>Key paper:</strong> Zhang, Q.<sup>*</sup>, Tan, Y. S.<sup>*</sup>, Tian, Q.<sup>*</sup>, and Li, P. (2025). TabPFN: One Model to Rule Them All? <em>Major revision at JASA</em>.
+<p>In <strong>TabReliBench</strong> (Zhao, Guo, et al., 2026), we further evaluate tabular foundation models beyond predictive accuracy.</p>
+
+<p><strong>Key papers:</strong></p>
+
+<ul>
+  <li>
+    <p>Zhang, Q.<sup>*</sup>, Tan, Y. S.<sup>*</sup>, Tian, Q.<sup>*</sup>, and Li, P. (2025). TabPFN: One Model to Rule Them All? <em>Minor revision at JASA</em>.
 [<a href="https://arxiv.org/abs/2505.20003">arXiv</a>]
 [<a href="https://github.com/qinglong-tian/tabpfn_study">Code</a>]</p>
+  </li>
+  <li>
+    <p>Zhao, T., Guo, J., Tan, Y. S., and Zhang, Q. (2026). TabReliBench: Evaluating Tabular Foundation Models Beyond Predictive Accuracy. <em>Preprint</em>.</p>
+  </li>
+</ul>
 
 <hr />
 
@@ -158,15 +169,33 @@ Rather than a separate preprocessing step, the number of clusters is embedded di
 <p>We construct prior datasets where both the number of clusters and cluster structures vary, enabling the PFN to learn a mapping from raw data to latent partition structure in a fully amortized manner.
 The result: a unified inference procedure that outputs both the number of clusters and assignments in a <strong>single forward pass</strong>, without iterative optimization or repeated model fitting.</p>
 
-<p><strong>Key paper:</strong> Zhao, T., Wang, G., Tan, Y. S., and Zhang, Q. (2025). TabClustPFN: A Prior-Fitted Network for Tabular Data Clustering. <em>Preprint</em>.
+<p><strong>Key paper:</strong> Zhao, T., Wang, G., Tan, Y. S., and Zhang, Q. (2026). TabClustPFN: A Prior-Fitted Network for Tabular Data Clustering. <em>NeurIPS 2026</em>.
 [<a href="https://arxiv.org/abs/2601.21656">arXiv</a>]
 [<a href="https://github.com/Tianqi-Zhao/TabClustPFN">Code</a>]</p>
+
+<hr />
+
+<h2 id="understanding-and-improving-tabular-foundation-models">Understanding and improving tabular foundation models</h2>
+
+<p>Beyond applying PFNs to new tasks, we also study where tabular foundation models break down and how their design can be improved: examining how they behave with repeated measurements (Liu et al., 2026), and aligning model architecture with sparse priors (Zhao, Zhuang, Duan, et al., 2026).</p>
+
+<p><strong>Key papers:</strong></p>
+
+<ul>
+  <li>
+    <p>Liu, Y., Deng, R., Chakraborty, B., Zhang, Q., and Tan, Y. S. (2026). When Repeated Measurements Hurt Tabular Foundation Models. <em>Preprint</em>.</p>
+  </li>
+  <li>
+    <p>Zhao, T.<sup>*</sup>, Zhuang, T.<sup>*</sup>, Duan, S.<sup>*</sup>, Wang, G., Tan, Y. S., and Zhang, Q. (2026). Architecture Alignment With Sparse Priors in Tabular Foundation Models. <em>Preprint</em>.
+[<a href="https://arxiv.org/abs/2609.36883">arXiv</a>]</p>
+  </li>
+</ul>
 
 </main>
 
 <footer class="site-footer">
   <div class="container">
-    <p>Qiong Zhang | 张琼 &middot; Assistant Professor, Institute of Statistics and Big Data, Renmin University of China</p>
+    <p>Qiong Zhang | 张琼 &middot; Assistant Professor, Division of Computing and Mathematical Sciences, MBZUAI</p>
   </div>
 </footer>
 
